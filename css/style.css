@@ -455,3 +455,72 @@ body {
     align-items: flex-start;
   }
 }
+
+/* Live Server Sync & Kuro Clocks */
+.server-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all var(--transition);
+}
+
+.server-card:hover {
+  border-color: var(--wuwa-cyan);
+}
+
+.status-dot-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: var(--wuwa-green);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--wuwa-green);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.server-clock {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--wuwa-cyan);
+  letter-spacing: 1px;
+}
+
+.reset-countdown {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--wuwa-gold);
+  background: rgba(255, 209, 89, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+}
+
+.script-box {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: all;
+  margin: 0.75rem 0;
+}
+

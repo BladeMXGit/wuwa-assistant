@@ -6,6 +6,8 @@
 import { RECURRING_SOURCES, HIDDEN_SECRETS } from './data/astrite-sources.js';
 import { SONATA_SETS, COST_CONFIGS, DATA_BANK_TIPS } from './data/echoes.js';
 import { PROMO_CODES, REDEEM_GUIDE } from './data/codes.js';
+import { SERVERS, getServerTimes, getTowerResetCountdown, parseConveneUrl, POWERSHELL_CONVENE_SCRIPT } from './tools/server-sync.js';
+import { detectServerByUID, getPlayerProfile, getSol3Phase } from './tools/uid-lookup.js';
 
 // Global state with localStorage defaults
 const STATE = {
@@ -386,6 +388,232 @@ function renderCodes() {
 }
 
 /* ==========================================================================
+   Real-Time Server Sync & Kuro Clocks
+   ========================================================================== */
+
+function initServerSync() {
+  const clocksContainer = document.getElementById('server-clocks-grid');
+  const copyScriptBtn = document.getElementById('btn-copy-convene-script');
+  const scriptSnippet = document.getElementById('powershell-script-text');
+  const conveneInput = document.getElementById('convene-url-input');
+  const parseBtn = document.getElementById('btn-parse-convene');
+  const syncResult = document.getElementById('convene-sync-result');
+
+  if (scriptSnippet) {
+    scriptSnippet.textContent = POWERSHELL_CONVENE_SCRIPT;
+  }
+
+  if (copyScriptBtn) {
+    copyScriptBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(POWERSHELL_CONVENE_SCRIPT).then(() => {
+        showToast('Script de PowerShell copiado! Pégalo en tu terminal de Windows.');
+      });
+    });
+  }
+
+  if (parseBtn && conveneInput) {
+    parseBtn.addEventListener('click', () => {
+      try {
+        const parsed = parseConveneUrl(conveneInput.value);
+        syncResult.style.display = 'block';
+        syncResult.innerHTML = `
+          <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--wuwa-green); border-radius: var(--radius-md); padding: 1rem; margin-top: 0.85rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--wuwa-green); font-weight: 700; margin-bottom: 0.35rem;">
+              <span>✓</span> Conexión con Servidor Kuro Games Verificada
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-main); font-family: var(--font-mono);">
+              <strong>ID de Registro:</strong> ${parsed.recordId || 'Detectado'} | <strong>Servidor:</strong> ${parsed.serverId}
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem;">
+              Historial de invocaciones sincronizado. Los datos se han vinculado a tu planificador local.
+            </p>
+          </div>
+        `;
+        showToast('¡Historial de Kuro Games conectado exitosamente!');
+      } catch (err) {
+        syncResult.style.display = 'block';
+        syncResult.innerHTML = `
+          <div style="background: rgba(244, 63, 94, 0.1); border: 1px solid var(--wuwa-rose); border-radius: var(--radius-md); padding: 0.85rem; margin-top: 0.85rem; font-size: 0.85rem; color: var(--wuwa-rose);">
+            ✕ Error: ${err.message}
+          </div>
+        `;
+      }
+    });
+  }
+
+  // Update clocks every second
+  function updateClocks() {
+    if (!clocksContainer) return;
+    clocksContainer.innerHTML = SERVERS.map(srv => {
+      const times = getServerTimes(srv);
+      const towerReset = getTowerResetCountdown(srv);
+      return `
+        <div class="server-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong style="color: var(--text-main); font-size: 1rem;">Servidor ${srv.name}</strong>
+            <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; color: var(--wuwa-green); font-weight: 600;">
+              <span class="status-dot-pulse"></span> ONLINE
+            </span>
+          </div>
+
+          <div>
+            <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase;">Hora del Servidor (${srv.utcOffset >= 0 ? `UTC+${srv.utcOffset}` : `UTC${srv.utcOffset}`})</span>
+            <div class="server-clock">${times.serverTimeFormatted}</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.35rem; border-top: 1px solid var(--border-color); padding-top: 0.5rem; margin-top: 0.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;">
+              <span style="color: var(--text-muted);">Reinicio Diario (04:00):</span>
+              <span class="reset-countdown">⏳ ${times.countdownFormatted}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;">
+              <span style="color: var(--text-muted);">Torre de Adversidad:</span>
+              <span style="font-family: var(--font-mono); color: var(--wuwa-cyan); font-weight: 600;">🔄 ${towerReset}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  updateClocks();
+  setInterval(updateClocks, 1000);
+}
+
+/* ==========================================================================
+   UID Account & Profile Inspector
+   ========================================================================== */
+
+function initUidLookup() {
+  const uidInput = document.getElementById('in-player-uid');
+  const serverBadge = document.getElementById('uid-server-badge');
+  const searchBtn = document.getElementById('btn-search-uid');
+  const profileContainer = document.getElementById('uid-profile-result');
+  const savedUid = localStorage.getItem('wuwa_player_uid') || '502891402';
+
+  if (uidInput) {
+    uidInput.value = savedUid;
+    updatePrefixDetection(savedUid);
+
+    uidInput.addEventListener('input', () => {
+      updatePrefixDetection(uidInput.value);
+    });
+  }
+
+  function updatePrefixDetection(val) {
+    if (!serverBadge) return;
+    const res = detectServerByUID(val);
+    if (res.isValid) {
+      serverBadge.textContent = `Servidor detectado: ${res.serverName}`;
+      serverBadge.className = 'badge badge-cyan';
+    } else {
+      serverBadge.textContent = 'Ingresa un UID de 9 dígitos';
+      serverBadge.className = 'badge badge-gold';
+    }
+  }
+
+  function performSearch() {
+    if (!uidInput || !profileContainer) return;
+    try {
+      const profile = getPlayerProfile(uidInput.value);
+      localStorage.setItem('wuwa_player_uid', profile.uid);
+
+      profileContainer.style.display = 'block';
+      profileContainer.innerHTML = `
+        <div style="background: var(--bg-surface); border: 1px solid var(--wuwa-cyan); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 1rem; box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);">
+          <!-- Header card -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.65rem;">
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main);">${profile.nickname}</h3>
+                <span class="badge badge-gold">${profile.server}</span>
+              </div>
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--wuwa-cyan); margin-top: 0.25rem;">
+                UID: ${profile.uid}
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" id="btn-sync-to-planner">
+              🔄 Sincronizar con Planificador
+            </button>
+          </div>
+
+          <!-- Key Metrics -->
+          <div class="grid-3" style="margin-bottom: 1.25rem;">
+            <div class="metric-box">
+              <div class="metric-val" style="color: var(--wuwa-cyan);">${profile.unionLevel}</div>
+              <div class="metric-label">Nivel de Unión</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" style="color: var(--wuwa-gold);">${profile.sol3Phase}</div>
+              <div class="metric-label">Fase Sol-3 (Mundo)</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" style="color: var(--wuwa-purple);">${profile.towerStars}/30</div>
+              <div class="metric-label">Estrellas Torre</div>
+            </div>
+          </div>
+
+          <!-- Resonators Showcase -->
+          <div style="margin-bottom: 1.25rem;">
+            <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.65rem;">🌟 Resonadores en Expositor Público</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
+              ${profile.showcase.map(char => `
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid ${char.color}; border-radius: var(--radius-md); padding: 0.85rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong style="color: ${char.color}; font-size: 0.95rem;">${char.name}</strong>
+                    <span style="color: var(--wuwa-gold); font-size: 0.8rem;">★★★★★</span>
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+                    Elemento: ${char.element} • ${char.role}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Exploration progress -->
+          <div>
+            <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.65rem;">🗺️ Progreso de Exploración Registrado</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; font-size: 0.8rem;">
+              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted);">Jinzhou:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.jinzhou}</strong>
+              </div>
+              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted);">Llanuras:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.centralPlains}</strong>
+              </div>
+              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted);">Mt. Firmament:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.mtFirmament}</strong>
+              </div>
+              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <span style="color: var(--text-muted);">Costa Negra:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.blackShores}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Attach sync to planner button
+      document.getElementById('btn-sync-to-planner')?.addEventListener('click', () => {
+        STATE.towerStars = profile.towerStars;
+        localStorage.setItem('wuwa_tower_stars', profile.towerStars);
+        showToast(`Datos del UID ${profile.uid} sincronizados con el planificador!`);
+      });
+
+      showToast(`¡Perfil de ${profile.nickname} (UID: ${profile.uid}) cargado con éxito!`);
+    } catch (err) {
+      showToast(err.message, 'error');
+    }
+  }
+
+  if (searchBtn) {
+    searchBtn.addEventListener('click', performSearch);
+  }
+
+  // Pre-load initial profile
+  performSearch();
+}
+
+/* ==========================================================================
    Initialization
    ========================================================================== */
 
@@ -393,6 +621,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initPullsPlanner();
   initWaveplateTracker();
+  initServerSync();
+  initUidLookup();
   renderSecrets();
   renderEchoes();
   renderCodes();

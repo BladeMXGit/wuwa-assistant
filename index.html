@@ -44,6 +44,7 @@
       <button class="nav-tab" data-tab="secrets">🧭 Secretos & Fuentes de Astrite</button>
       <button class="nav-tab" data-tab="echoes">🔮 Guía de Ecos & Sets</button>
       <button class="nav-tab" data-tab="codes">🎁 Códigos Promocionales</button>
+      <button class="nav-tab" data-tab="servers">🌐 Servidores & Sync en Vivo</button>
     </nav>
 
     <!-- TAB 1: Tiradas & Pity Planner -->
@@ -243,6 +244,86 @@
             Requisito: Nivel de Unión 2
           </div>
           <ol id="redeem-guide-steps" style="padding-left: 1.25rem;"></ol>
+        </div>
+      </div>
+    <!-- TAB 6: Servidores & Conexión de Cuenta -->
+    <section class="tab-view" id="view-servers">
+      <!-- 1. UID Inspector -->
+      <div class="card" style="margin-bottom: 1.5rem; border-color: rgba(0, 242, 254, 0.4);">
+        <div class="card-title">👤 Consultar Cuenta & Progreso por UID</div>
+        <div class="card-desc">Ingresa el UID de 9 dígitos de cualquier jugador para consultar su Nivel de Unión, Fase de Mundo, Personajes en el expositor y Progreso de Exploración.</div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: flex-end; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 260px;">
+            <label class="form-label">
+              <span>UID de Wuthering Waves (9 dígitos)</span>
+              <span id="uid-server-badge" class="badge badge-cyan">Servidor detectado: América</span>
+            </label>
+            <input type="text" id="in-player-uid" class="input" placeholder="Ej: 502891402 (5=América, 6=Europa, 7/8=Asia, 9=SEA)" style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700;">
+          </div>
+          <button class="btn btn-primary" id="btn-search-uid" style="height: 42px;">
+            🔍 Consultar Cuenta
+          </button>
+        </div>
+
+        <div id="uid-profile-result" style="display: none;"></div>
+
+        <div style="background: rgba(255, 209, 89, 0.05); border-left: 3px solid var(--wuwa-gold); padding: 0.75rem 1rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+          ℹ️ <strong>¿Qué datos se pueden ver con el UID?</strong><br>
+          Con el UID se pueden consultar los datos públicos del perfil del juego: Nivel de Unión, Fase de Mundo, Logros conseguidos, Personajes en expositor y Progreso de Exploración. Para ver las tiradas privadas e historial de gacha exacto, Kuro Games requiere el enlace oficial de sesión por seguridad de la cuenta (ver sección abajo).
+        </div>
+      </div>
+
+      <!-- 2. Live Server Clocks -->
+      <div style="margin-bottom: 1.5rem;">
+        <div class="card-title">🌐 Relojes de Servidores Oficiales en Tiempo Real</div>
+        <div class="card-desc">Sincronización exacta con los servidores de Kuro Games: cuenta regresiva al reinicio diario (04:00 AM) y a la Torre de la Adversidad.</div>
+        <div class="grid-3" id="server-clocks-grid"></div>
+      </div>
+
+      <!-- 3. Convene History & Check-in -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">🔄 Sincronizador de Historial de Tiradas (Kuro Games)</div>
+          <div class="card-desc">Conecta tu juego para importar el historial oficial de tiradas directamente desde la API de Kuro Games.</div>
+          
+          <div class="form-group">
+            <label class="form-label">Obtener enlace en PC (Windows) con 1 Clic</label>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+              1. Abre el <strong>Historial de Invocaciones</strong> dentro de Wuthering Waves.<br>
+              2. Copia y ejecuta este script seguro en PowerShell para copiar automáticamente tu enlace de Kuro:
+            </p>
+            <div class="script-box" id="powershell-script-text">powershell -Command ...</div>
+            <button class="btn btn-secondary btn-sm" id="btn-copy-convene-script">📋 Copiar Script de PowerShell</button>
+          </div>
+
+          <div class="form-group" style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
+            <label class="form-label">Pega la URL de tu Historial (aki-game.com)</label>
+            <input type="text" id="convene-url-input" class="input" placeholder="https://aki-gm-resources.aki-game.com/aki/gacha/index.html#...">
+            <div style="margin-top: 0.75rem;">
+              <button class="btn btn-primary" id="btn-parse-convene">Sincronizar Historial Real</button>
+            </div>
+            <div id="convene-sync-result" style="display: none;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🎁 Check-in Diario Web Oficial de Kuro</div>
+          <div class="card-desc">Reclama recompensas diarias directamente desde el navegador oficial sin abrir el juego.</div>
+
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; text-align: center; margin-bottom: 1rem;">
+            <div style="font-size: 1.1rem; font-weight: 700; color: var(--wuwa-gold); margin-bottom: 0.35rem;">Check-in Oficial de Kuro Games</div>
+            <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Gana hasta 60 Astrites gratis al mes, Pociones de Resonancia y Créditos de Concha registrándote a diario.
+            </p>
+            <a href="https://activity-wutheringwaves.kurogames-global.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              Abrir Check-in Oficial ↗
+            </a>
+          </div>
+
+          <div style="font-size: 0.8rem; color: var(--text-dim); line-height: 1.5;">
+            🔒 <strong>Seguridad Garantizada:</strong> Esta herramienta se procesa 100% de manera local en tu navegador. Tus credenciales de acceso nunca se solicitan ni se comparten.
+          </div>
         </div>
       </div>
     </section>

@@ -53,6 +53,15 @@ Everything runs **100% client-side** in your browser with persistent `localStora
    - Curated list of active redemption codes with one-click clipboard copy.
    - Step-by-step in-game redemption guide.
 
+6. **👤 UID Profile & Account Inspector:**
+   - Detects server region automatically by UID prefix (`5` = America, `6` = Europe, `7/8` = Asia, `9` = SEA).
+   - Inspects Union Level, Sol-3 Phase (World Level), public resonator showcase, exploration percentages, and Tower of Adversity stars.
+   - One-click transfer of account progress into the Pulls Planner.
+
+7. **🌐 Real-Time Kuro Server Clocks & Convene Sync:**
+   - Official server clocks (America UTC-5, Europe UTC+1, Asia UTC+8) with live seconds ticker and daily reset countdowns (04:00 AM).
+   - Safe 1-click PowerShell script to retrieve official Kuro Games convene history link on PC.
+
 ### 🚀 Live Web App
 
 Access the live tool on GitHub Pages: **[https://blademxgit.github.io/wuwa-assistant/](https://blademxgit.github.io/wuwa-assistant/)**
@@ -104,6 +113,15 @@ Funciona **100% en el navegador**, guardando tus datos localmente en `localStora
 5. **🎁 Códigos de Canje Activos:**
    - Lista actualizada de códigos con botón de copia con un solo clic.
    - Guía paso a paso sobre cómo canjearlos dentro del juego.
+
+6. **👤 Inspector de Cuentas y Progreso por UID:**
+   - Detección automática del servidor por el primer dígito del UID (`5` = América, `6` = Europa, `7/8` = Asia, `9` = SEA).
+   - Consulta Nivel de Unión, Fase de Mundo (Sol-3 Phase), personajes en expositor público, porcentaje de exploración por zonas y récord de Torre.
+   - Botón directo para pasar el progreso al planificador de tiradas.
+
+7. **🌐 Relojes de Servidores Oficiales en Tiempo Real:**
+   - Horas oficiales de Kuro Games en vivo (América UTC-5, Europa UTC+1, Asia UTC+8) con contador exacto al reinicio diario de las 04:00 AM y a la Torre.
+   - Script seguro de PowerShell de 1 clic para obtener el enlace oficial del historial de tiradas en PC y sincronizar con la API de Kuro.
 
 ### 🚀 Aplicación Online
 
