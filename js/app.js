@@ -416,26 +416,26 @@ function renderSecrets() {
   const secretsContainer = document.getElementById('secrets-list');
 
   recurringContainer.innerHTML = RECURRING_SOURCES.map(s => `
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 0.75rem;">
+    <div style="background: var(--bg-page); border: 1px solid var(--border-white-subtle); padding: 1rem; margin-bottom: 0.75rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-        <strong style="color: var(--text-main); font-size: 0.95rem;">${s.name}</strong>
-        <span class="badge ${s.category === 'f2p' ? 'badge-cyan' : 'badge-gold'}">+${s.amount} Astrite</span>
+        <strong style="color: var(--text-pure); font-size: 0.95rem;">${s.name}</strong>
+        <span class="badge badge-gold">+${s.amount} Astrite</span>
       </div>
       <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">${s.desc}</p>
-      <div style="font-size: 0.75rem; color: var(--wuwa-cyan); font-family: var(--font-mono);">
+      <div style="font-size: 0.75rem; color: var(--gold-primary); font-family: var(--font-mono); font-weight: 700;">
         Frecuencia: ${s.frequency} • ~${s.monthlyEst} Astrite / mes
       </div>
     </div>
   `).join('');
 
   secretsContainer.innerHTML = HIDDEN_SECRETS.map(h => `
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.15rem; margin-bottom: 0.85rem;">
+    <div style="background: var(--bg-page); border: 1px solid var(--border-white-subtle); padding: 1.15rem; margin-bottom: 0.85rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-        <strong style="color: var(--wuwa-gold); font-size: 1rem;">${h.title}</strong>
+        <strong style="color: var(--gold-primary); font-size: 1rem;">${h.title}</strong>
         <span class="badge badge-gold">${h.reward}</span>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.5rem;">${h.desc}</p>
-      <div style="background: rgba(0, 242, 254, 0.06); border-left: 3px solid var(--wuwa-cyan); padding: 0.5rem 0.75rem; font-size: 0.8rem; color: var(--wuwa-cyan); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;">
+      <p style="font-size: 0.825rem; color: var(--text-main); margin-bottom: 0.5rem;">${h.desc}</p>
+      <div style="background: var(--bg-card); border: 1px solid var(--border-white-subtle); border-left: 3px solid var(--gold-primary); padding: 0.65rem 0.85rem; font-size: 0.8rem; color: var(--gold-primary);">
         💡 <strong>Truco:</strong> ${h.tips}
       </div>
     </div>
@@ -513,7 +513,7 @@ function renderCodes() {
 
   guideContainer.innerHTML = REDEEM_GUIDE.inGameSteps.map((step, idx) => `
     <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
-      <strong style="color: var(--wuwa-cyan);">${idx + 1}.</strong> ${step}
+      <strong style="color: var(--gold-primary);">${idx + 1}.</strong> ${step}
     </li>
   `).join('');
 }
@@ -599,7 +599,7 @@ function initServerSync() {
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;">
               <span style="color: var(--text-muted);">Torre de Adversidad:</span>
-              <span style="font-family: var(--font-mono); color: var(--wuwa-cyan); font-weight: 600;">🔄 ${towerReset}</span>
+              <span style="font-family: var(--font-mono); color: var(--gold-primary); font-weight: 700;">🔄 ${towerReset}</span>
             </div>
           </div>
         </div>
@@ -636,10 +636,10 @@ function initUidLookup() {
     const res = detectServerByUID(val);
     if (res.isValid) {
       serverBadge.textContent = `Servidor detectado: ${res.serverName}`;
-      serverBadge.className = 'badge badge-cyan';
+      serverBadge.className = 'badge badge-gold';
     } else {
       serverBadge.textContent = 'Ingresa un UID de 9 dígitos';
-      serverBadge.className = 'badge badge-gold';
+      serverBadge.className = 'badge';
     }
   }
 
@@ -651,15 +651,15 @@ function initUidLookup() {
 
       profileContainer.style.display = 'block';
       profileContainer.innerHTML = `
-        <div style="background: var(--bg-surface); border: 1px solid var(--wuwa-cyan); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 1rem; box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-white-solid); padding: 1.5rem; margin-top: 1.25rem;">
           <!-- Header card -->
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
             <div>
               <div style="display: flex; align-items: center; gap: 0.65rem;">
-                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main);">${profile.nickname}</h3>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff;">${profile.nickname}</h3>
                 <span class="badge badge-gold">${profile.server}</span>
               </div>
-              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--wuwa-cyan); margin-top: 0.25rem;">
+              <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold-primary); margin-top: 0.25rem; font-weight: 700;">
                 UID: ${profile.uid}
               </div>
             </div>
@@ -671,29 +671,29 @@ function initUidLookup() {
           <!-- Key Metrics -->
           <div class="grid-3" style="margin-bottom: 1.25rem;">
             <div class="metric-box">
-              <div class="metric-val" style="color: var(--wuwa-cyan);">${profile.unionLevel}</div>
+              <div class="metric-val" style="color: #ffffff;">${profile.unionLevel}</div>
               <div class="metric-label">Nivel de Unión</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val" style="color: var(--wuwa-gold);">${profile.sol3Phase}</div>
+              <div class="metric-val" style="color: var(--gold-primary);">${profile.sol3Phase}</div>
               <div class="metric-label">Fase Sol-3 (Mundo)</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val" style="color: var(--wuwa-purple);">${profile.towerStars}/30</div>
+              <div class="metric-val" style="color: var(--gold-primary);">${profile.towerStars}/30</div>
               <div class="metric-label">Estrellas Torre</div>
             </div>
           </div>
 
           <!-- Resonators Showcase -->
           <div style="margin-bottom: 1.25rem;">
-            <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.65rem;">🌟 Resonadores en Expositor Público</div>
+            <div class="card-title" style="font-size: 0.88rem; margin-bottom: 0.65rem;">🌟 Resonadores en Expositor Público</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
               ${profile.showcase.map(char => `
-                <div style="background: var(--bg-card); border: 1px solid var(--border-tech); border-left: 3px solid ${char.color}; border-radius: var(--radius-sm); padding: 0.85rem; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="background: var(--bg-page); border: 1px solid var(--border-white-subtle); border-left: 3px solid var(--gold-primary); padding: 0.85rem; display: flex; align-items: center; gap: 0.75rem;">
                   <div style="flex-shrink: 0;">${getElementIcon(char.element)}</div>
                   <div style="flex: 1;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <strong style="color: ${char.color}; font-size: 0.95rem;">${char.name}</strong>
+                      <strong style="color: #ffffff; font-size: 0.95rem;">${char.name}</strong>
                       <span style="color: var(--gold-primary); font-size: 0.8rem; letter-spacing: 1px;">★★★★★</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
@@ -707,19 +707,19 @@ function initUidLookup() {
 
           <!-- Exploration progress -->
           <div>
-            <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.65rem;">🗺️ Progreso de Exploración Registrado</div>
+            <div class="card-title" style="font-size: 0.88rem; margin-bottom: 0.65rem;">🗺️ Progreso de Exploración Registrado</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.5rem; font-size: 0.8rem;">
-              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-                <span style="color: var(--text-muted);">Jinzhou:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.jinzhou}</strong>
+              <div style="background: var(--bg-page); padding: 0.65rem 0.85rem; border: 1px solid var(--border-white-subtle);">
+                <span style="color: var(--text-muted);">Jinzhou:</span> <strong style="color: var(--gold-primary);">${profile.exploration.jinzhou}</strong>
               </div>
-              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-                <span style="color: var(--text-muted);">Llanuras:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.centralPlains}</strong>
+              <div style="background: var(--bg-page); padding: 0.65rem 0.85rem; border: 1px solid var(--border-white-subtle);">
+                <span style="color: var(--text-muted);">Llanuras:</span> <strong style="color: var(--gold-primary);">${profile.exploration.centralPlains}</strong>
               </div>
-              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-                <span style="color: var(--text-muted);">Mt. Firmament:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.mtFirmament}</strong>
+              <div style="background: var(--bg-page); padding: 0.65rem 0.85rem; border: 1px solid var(--border-white-subtle);">
+                <span style="color: var(--text-muted);">Mt. Firmament:</span> <strong style="color: var(--gold-primary);">${profile.exploration.mtFirmament}</strong>
               </div>
-              <div style="background: var(--bg-card); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-                <span style="color: var(--text-muted);">Costa Negra:</span> <strong style="color: var(--wuwa-cyan);">${profile.exploration.blackShores}</strong>
+              <div style="background: var(--bg-page); padding: 0.65rem 0.85rem; border: 1px solid var(--border-white-subtle);">
+                <span style="color: var(--text-muted);">Costa Negra:</span> <strong style="color: var(--gold-primary);">${profile.exploration.blackShores}</strong>
               </div>
             </div>
           </div>

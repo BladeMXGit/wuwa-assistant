@@ -13,11 +13,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- CRT Scanline Overlay -->
-  <div class="crt-overlay"></div>
-
   <div class="container">
-    <!-- Dither Lab Header -->
+    <!-- Clean Header -->
     <header class="lab-header">
       <div class="lab-title-row">
         <div class="lab-logo-box">
@@ -43,13 +40,13 @@
           <div class="lab-telemetry-meta">
             <strong>SOLARIS-3 // CORE v2.4</strong>
             <span>TACET FIELD: SYNCHRONIZED</span><br>
-            <span>AUDIO RESONANCE: STABLE</span>
+            <span>RESONANCE: OPTIMAL</span>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Swatches Strip: COLOR #1, COLOR #2 Style -->
+    <!-- Swatches Strip: Clean Black & Gold Cards with White Borders -->
     <div class="swatches-strip">
       <div class="swatch-group">
         <div class="swatch-label">RESOURCE #1</div>
@@ -62,7 +59,7 @@
       <div class="swatch-group">
         <div class="swatch-label">RESOURCE #2</div>
         <div class="swatch-box">
-          <span class="swatch-color" style="background: #fff2b2;"></span>
+          <span class="swatch-color" style="background: #ffe494;"></span>
           <span class="swatch-value" id="swatch-radiant-val">10</span>
           <span class="swatch-unit">RADIANT</span>
         </div>
@@ -70,7 +67,7 @@
       <div class="swatch-group">
         <div class="swatch-label">RESOURCE #3</div>
         <div class="swatch-box">
-          <span class="swatch-color" style="background: #c084fc;"></span>
+          <span class="swatch-color" style="background: #e5a93c;"></span>
           <span class="swatch-value" id="swatch-forging-val">0</span>
           <span class="swatch-unit">FORGING</span>
         </div>
@@ -78,8 +75,8 @@
       <div class="swatch-group">
         <div class="swatch-label">RESOURCE #4</div>
         <div class="swatch-box">
-          <span class="swatch-color" style="background: #00f2fe;"></span>
-          <span class="swatch-value" id="swatch-waveplate-val">140</span>
+          <span class="swatch-color" style="background: #ffffff;"></span>
+          <span class="swatch-value" id="swatch-waveplate-val">140/240</span>
           <span class="swatch-unit">WAVEPLATE</span>
         </div>
       </div>
@@ -195,11 +192,11 @@
               <div class="metric-label">Tiradas Actuales</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val" id="out-future-pulls" style="color: var(--cyan-accent);">48</div>
+              <div class="metric-val" id="out-future-pulls" style="color: #ffffff;">48</div>
               <div class="metric-label">Tiradas Estimadas</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val" id="out-guaranteed-needed" style="color: var(--rose-accent);">135</div>
+              <div class="metric-val" id="out-guaranteed-needed" style="color: var(--gold-primary);">135</div>
               <div class="metric-label">Para Garantizado</div>
             </div>
           </div>
@@ -207,7 +204,7 @@
           <div class="pity-container">
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
               <strong style="color: #ffffff;">ESTADO DEL PITY // TELEMETRY</strong>
-              <span id="pity-status-text" style="color: var(--cyan-accent); font-family: var(--font-mono); font-size: 0.72rem;">25/80 • 50/50</span>
+              <span id="pity-status-text" style="color: var(--gold-primary); font-family: var(--font-mono); font-size: 0.75rem;">25/80 • 50/50</span>
             </div>
             <div class="progress-bar-bg" style="height: 10px;">
               <div class="progress-bar-fill" id="pity-bar-fill" style="width: 31%;"></div>
@@ -221,15 +218,15 @@
 
           <div class="card" style="margin-bottom: 0;">
             <div class="dither-label">GACHA PROTOCOL // REGLAS KURO</div>
-            <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.5rem;">
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 0.5rem;">
               • <strong>Banner de Armas:</strong> 100% garantizado al llegar a 80 tiradas (sin 50/50).<br>
               • <strong>Soft Pity:</strong> A partir de tirada 65 la probabilidad de 5★ se dispara.<br>
               • <strong>Asegurar Personaje:</strong> 160 tiradas garantizan cualquier 5★ desde cero.
             </p>
           </div>
 
-          <!-- Dither Lab Bottom Buttons: Save Image & Export SVG -->
-          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          <!-- Bottom Action Buttons: Pure Gold & White Border -->
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
             <button class="btn-save" id="btn-save-planner">GUARDAR AHORROS Y CALCULAR</button>
             <button class="btn-export" id="btn-reset-planner">REINICIAR VALORES POR DEFECTO</button>
           </div>
@@ -243,12 +240,12 @@
         <div class="card">
           <div class="dither-label">
             <span>THRESHOLD // WAVEPLATE STAMINA</span>
-            <span style="color: var(--cyan-accent);">CAP: 240</span>
+            <span style="color: var(--gold-primary);">CAP: 240</span>
           </div>
           <div class="card-desc">Regeneración pasiva: 1 unidad cada 6 minutos (24 horas de 0 a 240).</div>
 
           <div class="dither-bar-track" style="height: 48px; margin-bottom: 1.25rem;">
-            <div class="dither-bar-fill" id="waveplate-slider-fill" style="width: 58%; background: var(--bg-bar-fill-cyan);"></div>
+            <div class="dither-bar-fill" id="waveplate-slider-fill" style="width: 58%; background: var(--gold-primary);"></div>
             <div class="dither-bar-text" style="font-size: 1.05rem;">
               <span>WAVEPLATE: <strong id="waveplate-display-text">140 / 240</strong></span>
               <span id="waveplate-pct-tag" style="font-size: 0.75rem;">58%</span>
@@ -266,7 +263,7 @@
 
         <div style="display: flex; flex-direction: column; gap: 1.25rem;">
           <div class="metric-box">
-            <div class="metric-val" id="waveplate-countdown" style="color: var(--cyan-accent); font-size: 2.2rem;">--:--:--</div>
+            <div class="metric-val" id="waveplate-countdown" style="color: var(--gold-primary); font-size: 2.2rem;">--:--:--</div>
             <div class="metric-label">Tiempo para Recarga Completa</div>
           </div>
 
@@ -335,7 +332,7 @@
     <!-- TAB 6: Servidores & Conexión de Cuenta -->
     <section class="tab-view" id="view-servers">
       <!-- 1. UID Inspector -->
-      <div class="card" style="margin-bottom: 1.5rem; border-color: rgba(0, 242, 254, 0.4);">
+      <div class="card" style="margin-bottom: 1.5rem;">
         <div class="card-title">👤 Consultar Cuenta & Progreso por UID</div>
         <div class="card-desc">Ingresa el UID de 9 dígitos de cualquier jugador para consultar su Nivel de Unión, Fase de Mundo, Personajes en el expositor y Progreso de Exploración.</div>
 
@@ -343,7 +340,7 @@
           <div style="flex: 1; min-width: 260px;">
             <label class="form-label">
               <span>UID de Wuthering Waves (9 dígitos)</span>
-              <span id="uid-server-badge" class="badge badge-cyan">Servidor detectado: América</span>
+              <span id="uid-server-badge" class="badge badge-gold">Servidor detectado: América</span>
             </label>
             <input type="text" id="in-player-uid" class="input" placeholder="Ej: 502891402 (5=América, 6=Europa, 7/8=Asia, 9=SEA)" style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700;">
           </div>
@@ -354,7 +351,7 @@
 
         <div id="uid-profile-result" style="display: none;"></div>
 
-        <div style="background: rgba(255, 209, 89, 0.05); border-left: 3px solid var(--wuwa-gold); padding: 0.75rem 1rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+        <div style="background: var(--bg-page); border: 1px solid var(--border-white-subtle); border-left: 3px solid var(--gold-primary); padding: 0.85rem 1rem; margin-top: 1.25rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
           ℹ️ <strong>¿Qué datos se pueden ver con el UID?</strong><br>
           Con el UID se pueden consultar los datos públicos del perfil del juego: Nivel de Unión, Fase de Mundo, Logros conseguidos, Personajes en expositor y Progreso de Exploración. Para ver las tiradas privadas e historial de gacha exacto, Kuro Games requiere el enlace oficial de sesión por seguridad de la cuenta (ver sección abajo).
         </div>
