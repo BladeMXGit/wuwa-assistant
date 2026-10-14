@@ -1,62 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
   <defs>
-    <!-- Radiant Gold Gradients -->
-    <linearGradient id="gold-core" x1="0%" y1="0%" x2="0%" y2="100%">
+    <!-- Radiant Gold Core Gradient -->
+    <linearGradient id="icon-gold-core" x1="50%" y1="0%" x2="50%" y2="100%">
       <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="30%" stop-color="#ffe494" />
+      <stop offset="25%" stop-color="#ffe494" />
       <stop offset="70%" stop-color="#ffd159" />
-      <stop offset="100%" stop-color="#e5a93c" />
+      <stop offset="100%" stop-color="#c98a1a" />
     </linearGradient>
 
-    <linearGradient id="gold-wing" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffe699" />
-      <stop offset="60%" stop-color="#ffd159" />
-      <stop offset="100%" stop-color="#b88320" />
+    <!-- Radiant Gold Wing Gradient -->
+    <linearGradient id="icon-gold-wing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2b8" />
+      <stop offset="50%" stop-color="#ffd159" />
+      <stop offset="100%" stop-color="#b07914" />
     </linearGradient>
-
-    <radialGradient id="gold-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffd159" stop-opacity="0.25" />
-      <stop offset="60%" stop-color="#b88320" stop-opacity="0.08" />
-      <stop offset="100%" stop-color="#0a0a0c" stop-opacity="0" />
-    </radialGradient>
   </defs>
 
-  <!-- Deep Black Backplate with Crisp White Border -->
-  <rect x="6" y="6" width="116" height="116" fill="#08080a" stroke="#ffffff" stroke-width="1.5" />
-  
-  <!-- Subtle Ambient Glow -->
-  <circle cx="64" cy="64" r="50" fill="url(#gold-glow)" />
+  <!-- Deep Black Square with Crisp White Border for Favicon/Icon Base -->
+  <rect x="3" y="3" width="122" height="122" fill="#08080a" stroke="#ffffff" stroke-width="1.5" />
 
-  <!-- Outer Sonic Wave Arcs in Gold -->
-  <path d="M64 16 C88 32 98 52 98 64 C98 76 88 96 64 112" fill="none" stroke="#ffd159" stroke-width="1.8" stroke-linecap="square" opacity="0.8" />
-  <path d="M64 16 C40 32 30 52 30 64 C30 76 40 96 64 112" fill="none" stroke="#ffd159" stroke-width="1.8" stroke-linecap="square" opacity="0.8" />
+  <!-- Outer Acoustic Soundwave Arcs -->
+  <path d="M 64 12 C 94 30 108 50 108 64 C 108 78 94 98 64 116" stroke="#ffd159" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.85" />
+  <path d="M 64 12 C 34 30 20 50 20 64 C 20 78 34 98 64 116" stroke="#ffd159" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.85" />
 
-  <!-- Concentric Soundwave Marks with White Accents -->
-  <path d="M64 26 C80 38 88 52 88 64 C88 76 80 90 64 102" fill="none" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5" />
-  <path d="M64 26 C48 38 40 52 40 64 C40 76 48 90 64 102" fill="none" stroke="#ffffff" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.5" />
+  <!-- Concentric Dotted Resonance Rings -->
+  <path d="M 64 22 C 86 36 96 50 96 64 C 96 78 86 92 64 106" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity="0.45" />
+  <path d="M 64 22 C 42 36 32 50 32 64 C 32 78 42 92 64 106" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity="0.45" />
 
-  <!-- Tacet Mark Primary Acoustic Wings / Spikes in Radiant Gold -->
-  <!-- Top Central Needle Spike -->
-  <polygon points="64,12 67,34 64,42 61,34" fill="url(#gold-core)" stroke="#ffffff" stroke-width="0.8" />
-  <!-- Bottom Needle Spike -->
-  <polygon points="64,116 67,94 64,86 61,94" fill="url(#gold-core)" stroke="#ffffff" stroke-width="0.8" />
+  <!-- Horizontal Acoustic Needles -->
+  <polygon points="120,64 88,61 88,67" fill="url(#icon-gold-core)" />
+  <polygon points="8,64 40,61 40,67" fill="url(#icon-gold-core)" />
 
-  <!-- Upper Lateral Wings -->
-  <path d="M64 44 Q82 38 92 26 Q86 46 72 54 Z" fill="url(#gold-wing)" stroke="#ffffff" stroke-width="0.6" />
-  <path d="M64 44 Q46 38 36 26 Q42 46 56 54 Z" fill="url(#gold-wing)" stroke="#ffffff" stroke-width="0.6" />
+  <!-- Upper Resonance Wings -->
+  <path d="M 64 38 Q 88 32 102 18 Q 92 42 74 52 Z" fill="url(#icon-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
+  <path d="M 64 38 Q 40 32 26 18 Q 36 42 54 52 Z" fill="url(#icon-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
 
-  <!-- Lower Lateral Wings -->
-  <path d="M64 84 Q82 90 92 102 Q86 82 72 74 Z" fill="url(#gold-wing)" stroke="#ffffff" stroke-width="0.6" />
-  <path d="M64 84 Q46 90 36 102 Q42 82 56 74 Z" fill="url(#gold-wing)" stroke="#ffffff" stroke-width="0.6" />
+  <!-- Lower Resonance Wings -->
+  <path d="M 64 90 Q 88 96 102 110 Q 92 86 74 76 Z" fill="url(#icon-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
+  <path d="M 64 90 Q 40 96 26 110 Q 36 86 54 76 Z" fill="url(#icon-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
 
-  <!-- Mid Crescent Wave Claws -->
-  <path d="M72 58 Q100 64 82 72 Q74 68 72 58 Z" fill="#ffd159" />
-  <path d="M56 58 Q28 64 46 72 Q54 68 56 58 Z" fill="#ffd159" />
+  <!-- Mid Crescent Flanks -->
+  <path d="M 76 56 Q 96 64 84 72 Q 78 68 76 56 Z" fill="#ffd159" stroke="#ffffff" stroke-width="0.5" />
+  <path d="M 52 56 Q 32 64 44 72 Q 50 68 52 56 Z" fill="#ffd159" stroke="#ffffff" stroke-width="0.5" />
 
-  <!-- Central Tacet Mark Rhombus (Heart Core) -->
-  <polygon points="64,46 78,64 64,82 50,64" fill="url(#gold-core)" stroke="#ffffff" stroke-width="1.5" />
+  <!-- Vertical Axis Needles (Top & Bottom) -->
+  <polygon points="64,4 67.5,24 64,36 60.5,24" fill="url(#icon-gold-core)" stroke="#ffffff" stroke-width="0.75" />
+  <polygon points="64,124 67.5,104 64,92 60.5,104" fill="url(#icon-gold-core)" stroke="#ffffff" stroke-width="0.75" />
 
-  <!-- Inner Dark Resonance Void -->
-  <polygon points="64,52 72,64 64,76 56,64" fill="#08080a" stroke="#ffd159" stroke-width="1" />
-  <circle cx="64" cy="64" r="3.5" fill="#ffffff" />
+  <!-- Outer Diamond Frame -->
+  <polygon points="64,34 86,64 64,94 42,64" fill="none" stroke="#ffd159" stroke-width="1.8" />
+  <polygon points="64,38 82,64 64,90 46,64" fill="#08080a" stroke="#ffffff" stroke-width="0.75" />
+
+  <!-- Center Resonator Core Rhombus -->
+  <polygon points="64,45 77,64 64,83 51,64" fill="url(#icon-gold-core)" stroke="#ffffff" stroke-width="1.2" />
+
+  <!-- Inner Core Cutout Void -->
+  <polygon points="64,52 71,64 64,76 57,64" fill="#08080a" stroke="#ffd159" stroke-width="0.8" />
+
+  <!-- Center Resonance Spark -->
+  <polygon points="64,58 67,64 64,70 61,64" fill="#ffffff" />
 </svg>

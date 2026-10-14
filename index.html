@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WUWA LAB — Herramienta & Planificador de Wuthering Waves</title>
+  <title>Wuthering Waves — Herramienta & Planificador</title>
   <meta name="description" content="Planificador de tiradas, calculadora de Pity y Astrites, seguimiento de Waveplate en tiempo real, guía de farmeo de Ecos y códigos promocionales para Wuthering Waves.">
   <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
 
@@ -14,33 +14,38 @@
 </head>
 <body>
   <div class="container">
-    <!-- Clean Header -->
-    <header class="lab-header">
-      <div class="lab-title-row">
-        <div class="lab-logo-box">
-          <img src="assets/wuwa-lab-logo.svg" alt="WUWA LAB" class="lab-logo-svg">
-          <div class="lab-btn-row">
-            <button class="dither-btn-mini" id="btn-quick-status">
-              <span class="soundwave">
-                <span class="soundwave-bar"></span>
-                <span class="soundwave-bar"></span>
-                <span class="soundwave-bar"></span>
-                <span class="soundwave-bar"></span>
-              </span>
-              <span>WAVEPLATE: <strong id="top-waveplate-val">140/240</strong></span>
-            </button>
-            <a href="https://github.com/BladeMXGit/wuwa-assistant" target="_blank" rel="noopener noreferrer" class="dither-btn-mini">
-              GITHUB // REPO ↗
-            </a>
+    <!-- Header: Wuthering Waves with Tacet Mark Logo -->
+    <header class="site-header">
+      <div class="header-main-row">
+        <div class="brand">
+          <div class="brand-logo-frame">
+            <img src="assets/tacet-mark.svg" alt="Tacet Mark de Wuthering Waves" class="brand-tacet-mark">
+          </div>
+          <div class="brand-meta">
+            <h1 class="brand-title">
+              Wuthering Waves
+              <span class="brand-badge">TACET MARK</span>
+            </h1>
+            <p class="brand-subtitle">Asistente de Recursos, Tiradas y Guía de Solaris-3</p>
           </div>
         </div>
 
-        <div class="lab-badge-row">
-          <img src="assets/icon.svg" alt="Tacet Mark" class="lab-tacet-icon">
-          <div class="lab-telemetry-meta">
-            <strong>SOLARIS-3 // CORE v2.4</strong>
-            <span>TACET FIELD: SYNCHRONIZED</span><br>
-            <span>RESONANCE: OPTIMAL</span>
+        <div class="header-controls">
+          <button class="dither-btn-mini" id="btn-quick-status" title="Acceso directo a Waveplate">
+            <span class="soundwave">
+              <span class="soundwave-bar"></span>
+              <span class="soundwave-bar"></span>
+              <span class="soundwave-bar"></span>
+              <span class="soundwave-bar"></span>
+            </span>
+            <span>WAVEPLATE: <strong id="top-waveplate-val">140/240</strong></span>
+          </button>
+          <a href="https://github.com/BladeMXGit/wuwa-assistant" target="_blank" rel="noopener noreferrer" class="dither-btn-mini">
+            GITHUB // REPO ↗
+          </a>
+          <div class="telemetry-badge">
+            <span class="telemetry-dot"></span>
+            <span>SOLARIS-3 // SYNCHRONIZED</span>
           </div>
         </div>
       </div>

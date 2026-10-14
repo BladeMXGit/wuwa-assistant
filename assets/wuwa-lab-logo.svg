@@ -1,17 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64">
-  <!-- Clean Sharp Vector Emblem -->
-  <g transform="translate(6, 6)">
-    <!-- Crisp Diamond Shield in Gold with White Border -->
-    <polygon points="26,2 50,26 26,50 2,26" fill="#101116" stroke="#ffffff" stroke-width="1.5" />
-    <polygon points="26,8 44,26 26,44 8,26" fill="none" stroke="#ffd159" stroke-width="1.2" />
-    <!-- Center Core Needle -->
-    <polygon points="26,12 29,26 26,32 23,26" fill="#ffd159" />
-    <polygon points="26,40 29,26 26,20 23,26" fill="#ffd159" />
-    <circle cx="26" cy="26" r="3.5" fill="#ffffff" />
-  </g>
-
-  <!-- Clean High-Contrast Typography (White & Gold) -->
-  <text x="68" y="32" font-family="'Space Mono', monospace" font-size="24" font-weight="700" letter-spacing="2" fill="#ffffff">WUWA</text>
-  <text x="140" y="32" font-family="'Space Mono', monospace" font-size="24" font-weight="700" letter-spacing="2" fill="#ffd159">LAB</text>
-  <text x="68" y="50" font-family="'Space Mono', monospace" font-size="10" font-weight="700" letter-spacing="2.5" fill="#ffd159">SOLARIS-3 // COMPANION</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
+  <defs>
+    <linearGradient id="wll-gold-core" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="25%" stop-color="#ffe494" />
+      <stop offset="70%" stop-color="#ffd159" />
+      <stop offset="100%" stop-color="#c98a1a" />
+    </linearGradient>
+    <linearGradient id="wll-gold-wing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff2b8" />
+      <stop offset="50%" stop-color="#ffd159" />
+      <stop offset="100%" stop-color="#b07914" />
+    </linearGradient>
+  </defs>
+  <!-- Symmetrical Wuthering Waves Tacet Mark Symbol -->
+  <path d="M 64 12 C 94 30 108 50 108 64 C 108 78 94 98 64 116" stroke="#ffd159" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.85" />
+  <path d="M 64 12 C 34 30 20 50 20 64 C 20 78 34 98 64 116" stroke="#ffd159" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.85" />
+  <polygon points="120,64 88,61 88,67" fill="url(#wll-gold-core)" />
+  <polygon points="8,64 40,61 40,67" fill="url(#wll-gold-core)" />
+  <path d="M 64 38 Q 88 32 102 18 Q 92 42 74 52 Z" fill="url(#wll-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
+  <path d="M 64 38 Q 40 32 26 18 Q 36 42 54 52 Z" fill="url(#wll-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
+  <path d="M 64 90 Q 88 96 102 110 Q 92 86 74 76 Z" fill="url(#wll-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
+  <path d="M 64 90 Q 40 96 26 110 Q 36 86 54 76 Z" fill="url(#wll-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
+  <polygon points="64,4 67.5,24 64,36 60.5,24" fill="url(#wll-gold-core)" stroke="#ffffff" stroke-width="0.75" />
+  <polygon points="64,124 67.5,104 64,92 60.5,104" fill="url(#wll-gold-core)" stroke="#ffffff" stroke-width="0.75" />
+  <polygon points="64,34 86,64 64,94 42,64" fill="none" stroke="#ffd159" stroke-width="1.8" />
+  <polygon points="64,38 82,64 64,90 46,64" fill="#08080a" stroke="#ffffff" stroke-width="0.75" />
+  <polygon points="64,45 77,64 64,83 51,64" fill="url(#wll-gold-core)" stroke="#ffffff" stroke-width="1.2" />
+  <polygon points="64,52 71,64 64,76 57,64" fill="#08080a" stroke="#ffd159" stroke-width="0.8" />
+  <polygon points="64,58 67,64 64,70 61,64" fill="#ffffff" />
 </svg>
