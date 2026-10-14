@@ -1,50 +1,50 @@
 /* ==========================================================================
-   Wuthering Waves Companion — High-Tech Solaris Black & Gold Theme
-   Inspired by Kuro Games' UI & Tacet Terminal Design System
+   Wuthering Waves Companion — Solaris Terminal HUD & Cyberpunk Console
+   Full Terminal Aesthetics, Monospaced CRT HUD, and Kuro Sci-Fi Styling
    ========================================================================== */
 
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  --font-mono: "JetBrains Mono", "Fira Code", "Share Tech Mono", Consolas, "Courier New", monospace;
+  --font-sans: var(--font-mono); /* Terminal aesthetic: Monospace everywhere */
 
-  /* Black & Radiant Gold Core Palette */
-  --bg-void: #04060a;
-  --bg-dark: #080c14;
-  --bg-surface: #0d121f;
-  --bg-card: #12192b;
-  --bg-card-hover: #18223a;
-  --bg-input: #070a12;
+  /* Terminal Obsidian & Solaris Amber/Gold Palette */
+  --bg-void: #030508;
+  --bg-dark: #070a12;
+  --bg-surface: #0a0f1c;
+  --bg-card: #0d1424;
+  --bg-card-hover: #131c33;
+  --bg-input: #04070e;
 
-  /* Solaris Gold Hierarchy */
+  /* Terminal Phosphor Gold */
   --gold-primary: #ffd159;
-  --gold-bright: #fff0a8;
+  --gold-bright: #fff2b2;
   --gold-deep: #e5a93c;
   --gold-dark: #b45309;
-  --gold-glow: 0 0 16px rgba(255, 209, 89, 0.35);
+  --gold-glow: 0 0 12px rgba(255, 209, 89, 0.4);
 
-  /* Hologram Cyan Accents */
+  /* Cyber Cyan Holographic Telemetry */
   --cyan-accent: #00f2fe;
-  --cyan-glow: 0 0 14px rgba(0, 242, 254, 0.3);
+  --cyan-glow: 0 0 12px rgba(0, 242, 254, 0.35);
 
-  /* Borders & Dividers */
-  --border-tech: #25334e;
-  --border-gold: rgba(255, 209, 89, 0.4);
+  /* Terminal Borders & Scaffolding */
+  --border-tech: #1e2c45;
+  --border-gold: rgba(255, 209, 89, 0.45);
   --border-active: #ffd159;
 
-  /* Text Hierarchy */
-  --text-main: #ffffff;
+  /* Terminal Text Colors */
+  --text-main: #f1f5f9;
   --text-gold: #ffd159;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-muted: #8496b0;
+  --text-dim: #4f617d;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
 
-  --transition: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: 0.15s ease-out;
 }
 
-/* Base Reset & Background */
+/* Base Reset & CRT Scanlines */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -54,48 +54,150 @@
 body {
   background-color: var(--bg-void);
   color: var(--text-main);
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   line-height: 1.5;
   min-height: 100vh;
-  /* High-Tech Hex Grid & Ambient Gold/Cyan Nebula */
+  letter-spacing: 0.2px;
+  /* Terminal scanline and subtle phosphor background */
   background-image: 
-    radial-gradient(circle at 85% 15%, rgba(255, 209, 89, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 15% 85%, rgba(0, 242, 254, 0.06) 0%, transparent 40%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    radial-gradient(circle at 85% 15%, rgba(255, 209, 89, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(0, 242, 254, 0.04) 0%, transparent 45%),
+    linear-gradient(to right, rgba(255, 209, 89, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 242, 254, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 
-/* Container */
-.container {
-  max-width: 1220px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 4rem 1rem;
+/* CRT Scanlines Overlay */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%),
+    linear-gradient(90deg, rgba(255, 209, 89, 0.02), rgba(0, 242, 254, 0.01), rgba(255, 209, 89, 0.02));
+  background-size: 100% 3px, 3px 100%;
+  opacity: 0.75;
 }
 
-/* Solaris Tech Banner Header */
-.terminal-hud-header {
+/* Terminal Chassis Window */
+.terminal-window {
+  max-width: 1240px;
+  margin: 1.25rem auto 3rem auto;
+  padding: 0 1rem;
+}
+
+/* Terminal Titlebar */
+.terminal-titlebar {
+  background: #080d1a;
+  border: 1px solid var(--border-tech);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: 0.5rem 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 1.5px;
-  color: var(--gold-deep);
-  padding: 0.4rem 0.85rem;
-  background: rgba(255, 209, 89, 0.04);
-  border: 1px solid rgba(255, 209, 89, 0.18);
-  border-radius: var(--radius-sm);
-  margin-bottom: 1.25rem;
-  text-transform: uppercase;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
+.titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.win-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.win-close { background-color: #ef4444; }
+.win-min { background-color: #f59e0b; }
+.win-max { background-color: #10b981; }
+
+.titlebar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+/* Terminal Body Box */
+.terminal-body {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-tech);
+  border-top: 1px solid var(--border-gold);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 209, 89, 0.08);
+}
+
+/* Terminal CLI Prompt Bar */
+.cli-prompt-bar {
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 1px solid var(--border-tech);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.85rem;
+  margin-bottom: 1.5rem;
+  gap: 0.65rem;
+  font-size: 0.85rem;
+}
+
+.cli-user-tag {
+  color: var(--gold-primary);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cli-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--cyan-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background-color: var(--gold-primary);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Soundwave Audio Bars */
 .soundwave {
   display: flex;
   align-items: flex-end;
   gap: 3px;
-  height: 14px;
+  height: 12px;
 }
 
 .soundwave-bar {
@@ -106,22 +208,22 @@ body {
 }
 
 .soundwave-bar:nth-child(2) { animation-delay: 0.2s; height: 10px; }
-.soundwave-bar:nth-child(3) { animation-delay: 0.4s; height: 14px; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.4s; height: 12px; }
 .soundwave-bar:nth-child(4) { animation-delay: 0.1s; height: 6px; }
 
 @keyframes wave {
-  0% { transform: scaleY(0.3); }
+  0% { transform: scaleY(0.25); }
   100% { transform: scaleY(1); }
 }
 
-/* Main Top Header */
+/* Terminal Navigation Bar */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-tech);
-  margin-bottom: 1.75rem;
+  border-bottom: 1px dashed var(--border-tech);
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -129,28 +231,21 @@ body {
 .brand {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
   text-decoration: none;
 }
 
 .brand-icon {
-  width: 48px;
-  height: 48px;
-  filter: drop-shadow(0 0 10px rgba(255, 209, 89, 0.45));
-  transition: transform 0.3s ease;
-}
-
-.brand:hover .brand-icon {
-  transform: rotate(15deg) scale(1.05);
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 0 8px rgba(255, 209, 89, 0.45));
 }
 
 .brand-title {
-  font-size: 1.45rem;
+  font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: 1px;
-  background: linear-gradient(135deg, #ffffff 30%, var(--gold-primary) 85%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--gold-bright);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -158,14 +253,12 @@ body {
 
 .brand-badge {
   font-size: 0.65rem;
-  font-family: var(--font-mono);
-  background: rgba(255, 209, 89, 0.15);
+  background: rgba(255, 209, 89, 0.12);
   color: var(--gold-primary);
   border: 1px solid var(--gold-primary);
   padding: 1px 6px;
   border-radius: 2px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 800;
 }
 
 .brand-subtitle {
@@ -173,7 +266,6 @@ body {
   color: var(--text-muted);
 }
 
-/* Header Action Pills */
 .header-badges {
   display: flex;
   align-items: center;
@@ -184,14 +276,13 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 209, 89, 0.08);
+  background: var(--bg-surface);
   border: 1px solid var(--border-gold);
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--gold-primary);
-  box-shadow: 0 0 12px rgba(255, 209, 89, 0.12);
 }
 
 .btn-github {
@@ -201,11 +292,11 @@ body {
   background: var(--bg-surface);
   border: 1px solid var(--border-tech);
   color: var(--text-main);
-  padding: 0.45rem 0.85rem;
+  padding: 0.4rem 0.85rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition: all var(--transition);
 }
 
@@ -215,12 +306,12 @@ body {
   box-shadow: var(--gold-glow);
 }
 
-/* Gacha Quick Currencies Strip */
+/* Gacha Currencies Strip */
 .currencies-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.75rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .currency-card {
@@ -250,13 +341,13 @@ body {
   color: var(--text-muted);
 }
 
-/* Navigation Tabs */
+/* Nav Tabs */
 .tabs-nav {
   display: flex;
   gap: 0.5rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   scrollbar-width: thin;
 }
 
@@ -264,10 +355,10 @@ body {
   background: var(--bg-surface);
   border: 1px solid var(--border-tech);
   color: var(--text-muted);
-  padding: 0.65rem 1.15rem;
+  padding: 0.6rem 1rem;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 800;
   cursor: pointer;
   white-space: nowrap;
   display: flex;
@@ -284,44 +375,32 @@ body {
 }
 
 .nav-tab.active {
-  background: linear-gradient(135deg, rgba(255, 209, 89, 0.18), rgba(18, 25, 43, 0.95));
+  background: rgba(255, 209, 89, 0.15);
   color: var(--gold-bright);
-  border-color: var(--gold-primary);
-  box-shadow: 0 0 15px rgba(255, 209, 89, 0.25);
-  position: relative;
-}
-
-.nav-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: var(--gold-primary);
-  box-shadow: 0 0 8px var(--gold-primary);
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 0 12px rgba(255, 209, 89, 0.25);
 }
 
 /* Views */
 .tab-view {
   display: none;
-  animation: viewFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: terminalFade 0.15s ease-out;
 }
 
 .tab-view.active {
   display: block;
 }
 
-@keyframes viewFade {
-  from { opacity: 0; transform: translateY(6px); }
+@keyframes terminalFade {
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* High-Tech Chamfered Cards */
+/* Cards & Layouts */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .grid-3 {
@@ -333,9 +412,9 @@ body {
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-tech);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-sm);
+  padding: 1.35rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   position: relative;
   transition: border-color var(--transition);
 }
@@ -344,36 +423,22 @@ body {
   border-color: var(--border-gold);
 }
 
-/* Tech Chamfer Cut corner badge */
-.card-tech-badge {
-  position: absolute;
-  top: 0;
-  right: 1.5rem;
-  background: var(--gold-primary);
-  color: #070a12;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-  letter-spacing: 0.5px;
-}
-
 .card-title {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: var(--gold-bright);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .card-desc {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
 }
 
 /* Forms & Inputs */
@@ -387,7 +452,7 @@ body {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--gold-primary);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -397,10 +462,10 @@ body {
   background: var(--bg-input);
   border: 1px solid var(--border-tech);
   color: var(--text-main);
-  padding: 0.65rem 0.85rem;
+  padding: 0.6rem 0.85rem;
   border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-family: inherit;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
   outline: none;
   transition: border-color var(--transition);
 }
@@ -414,44 +479,44 @@ body {
 .metric-box {
   background: var(--bg-surface);
   border: 1px solid var(--border-tech);
-  border-radius: var(--radius-sm);
-  padding: 1rem;
-  text-align: center;
   border-bottom: 2px solid var(--gold-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  text-align: center;
 }
 
 .metric-val {
-  font-size: 1.85rem;
+  font-size: 1.75rem;
   font-weight: 900;
   font-family: var(--font-mono);
   color: var(--gold-bright);
   line-height: 1.1;
-  text-shadow: 0 0 12px rgba(255, 209, 89, 0.4);
+  text-shadow: 0 0 10px rgba(255, 209, 89, 0.4);
 }
 
 .metric-label {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
-  margin-top: 0.35rem;
+  margin-top: 0.3rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 /* Pity Progress Bar */
 .pity-container {
   background: var(--bg-surface);
   border: 1px solid var(--border-tech);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  padding: 1.15rem;
   margin-top: 1rem;
 }
 
 .progress-bar-bg {
   width: 100%;
-  height: 12px;
+  height: 10px;
   background: var(--bg-input);
-  border-radius: 2px;
+  border-radius: 1px;
   overflow: hidden;
   margin: 0.65rem 0;
   position: relative;
@@ -460,8 +525,8 @@ body {
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #b45309, var(--gold-primary) 70%, #ffffff);
-  border-radius: 2px;
+  background: linear-gradient(90deg, #b45309, var(--gold-primary) 75%, #ffffff);
+  border-radius: 1px;
   transition: width 0.3s ease;
   box-shadow: 0 0 10px rgba(255, 209, 89, 0.5);
 }
@@ -471,58 +536,53 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.25rem 0.65rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 2px;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .badge-gold {
-  background: rgba(255, 209, 89, 0.15);
+  background: rgba(255, 209, 89, 0.12);
   color: var(--gold-primary);
   border: 1px solid var(--gold-primary);
 }
 
 .badge-cyan {
-  background: rgba(0, 242, 254, 0.15);
+  background: rgba(0, 242, 254, 0.12);
   color: var(--cyan-accent);
   border: 1px solid var(--cyan-accent);
 }
 
-.badge-purple {
-  background: rgba(192, 132, 252, 0.15);
-  color: #c084fc;
-  border: 1px solid #c084fc;
-}
-
-/* Buttons */
+/* Terminal Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.55rem 1.15rem;
+  padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 800;
   cursor: pointer;
   border: 1px solid transparent;
+  font-family: var(--font-mono);
   transition: all var(--transition);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--gold-bright), var(--gold-deep));
-  color: #05070c;
-  box-shadow: 0 0 15px rgba(255, 209, 89, 0.35);
+  background: var(--gold-primary);
+  color: #04060a;
+  box-shadow: 0 0 12px rgba(255, 209, 89, 0.35);
 }
 
 .btn-primary:hover {
   filter: brightness(1.15);
-  box-shadow: 0 0 20px rgba(255, 209, 89, 0.6);
+  box-shadow: 0 0 16px rgba(255, 209, 89, 0.6);
   transform: translateY(-1px);
 }
 
@@ -538,21 +598,21 @@ body {
 }
 
 .btn-sm {
-  padding: 0.35rem 0.75rem;
-  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.7rem;
 }
 
 /* Server Cards */
 .server-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-tech);
-  border-radius: var(--radius-md);
+  border-top: 2px solid var(--gold-primary);
+  border-radius: var(--radius-sm);
   padding: 1.15rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   transition: all var(--transition);
-  border-top: 3px solid var(--gold-primary);
 }
 
 .server-card:hover {
@@ -561,8 +621,8 @@ body {
 }
 
 .status-dot-pulse {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background-color: #10b981;
   border-radius: 50%;
   display: inline-block;
@@ -577,7 +637,7 @@ body {
 }
 
 .server-clock {
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 900;
   font-family: var(--font-mono);
   color: var(--gold-bright);
@@ -585,11 +645,11 @@ body {
 }
 
 .reset-countdown {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: var(--font-mono);
   color: var(--gold-primary);
-  background: rgba(255, 209, 89, 0.1);
-  padding: 0.2rem 0.5rem;
+  background: rgba(255, 209, 89, 0.08);
+  padding: 0.15rem 0.45rem;
   border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
@@ -612,12 +672,53 @@ body {
   margin: 0.75rem 0;
 }
 
+/* Terminal Log Console Drawer */
+.terminal-log-console {
+  margin-top: 2rem;
+  background: #04070e;
+  border: 1px solid var(--border-tech);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+}
+
+.console-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--border-tech);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+}
+
+.console-output {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  max-height: 120px;
+  overflow-y: auto;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.console-line {
+  line-height: 1.4;
+}
+
+.console-line .log-time { color: var(--text-dim); }
+.console-line .log-tag { color: var(--gold-primary); font-weight: 700; }
+.console-line .log-msg { color: var(--text-main); }
+
 /* Toast */
 .toast-container {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  z-index: 999;
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -625,24 +726,24 @@ body {
 }
 
 .toast {
-  background: var(--bg-card);
+  background: #04070e;
   border: 1px solid var(--gold-primary);
   color: var(--gold-bright);
-  padding: 0.75rem 1.25rem;
+  padding: 0.65rem 1.15rem;
   border-radius: var(--radius-sm);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
-  font-size: 0.85rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+  font-size: 0.8rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  animation: toastIn 0.25s ease-out;
+  animation: toastIn 0.2s ease-out;
   pointer-events: auto;
 }
 
 @keyframes toastIn {
-  from { opacity: 0; transform: translateY(12px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Responsive */

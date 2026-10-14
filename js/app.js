@@ -28,8 +28,20 @@ const STATE = {
 };
 
 /* ==========================================================================
-   UI Helpers: Toast & Clipboard
+   UI Helpers: Toast, Terminal Log & Clipboard
    ========================================================================== */
+
+export function terminalLog(tag, message) {
+  const stream = document.getElementById('terminal-log-stream');
+  if (!stream) return;
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const line = document.createElement('div');
+  line.className = 'console-line';
+  line.innerHTML = `<span class="log-time">[${timeStr}]</span> <span class="log-tag">[${tag}]</span> <span class="log-msg">${message}</span>`;
+  stream.appendChild(line);
+  stream.scrollTop = stream.scrollHeight;
+}
 
 function showToast(message, type = 'success') {
   const container = document.getElementById('toast-container');
@@ -52,6 +64,7 @@ window.copyCode = async function(text) {
   try {
     await navigator.clipboard.writeText(text);
     showToast(`Código ${text} copiado al portapapeles!`);
+    terminalLog('CLIPBOARD', `Código promocional ${text} copiado al búfer.`);
   } catch {
     const el = document.createElement('textarea');
     el.value = text;
@@ -60,6 +73,7 @@ window.copyCode = async function(text) {
     document.execCommand('copy');
     document.body.removeChild(el);
     showToast(`Código ${text} copiado!`);
+    terminalLog('CLIPBOARD', `Código ${text} copiado.`);
   }
 };
 
@@ -620,11 +634,14 @@ function initUidLookup() {
         STATE.towerStars = profile.towerStars;
         localStorage.setItem('wuwa_tower_stars', profile.towerStars);
         showToast(`Datos del UID ${profile.uid} sincronizados con el planificador!`);
+        terminalLog('DATA_SYNC', `UID ${profile.uid}: ${profile.towerStars} estrellas de Torre transferidas al planificador.`);
       });
 
       showToast(`¡Perfil de ${profile.nickname} (UID: ${profile.uid}) cargado con éxito!`);
+      terminalLog('UID_INSPECT', `Perfil cargado: ${profile.nickname} (UID: ${profile.uid}) • Nivel Unión: ${profile.unionLevel} • Fase Sol-3: ${profile.sol3Phase}`);
     } catch (err) {
       showToast(err.message, 'error');
+      terminalLog('ERROR', `Fallo al consultar UID: ${err.message}`);
     }
   }
 
@@ -637,6 +654,114 @@ function initUidLookup() {
 }
 
 /* ==========================================================================
+   Terminal Interactive CLI Runner
+   ========================================================================== */
+
+function initTerminalCLI() {
+  const cliInput = document.getElementById('cli-command-input');
+  const runBtn = document.getElementById('btn-run-cli');
+
+  function executeCommand() {
+    if (!cliInput) return;
+    const raw = cliInput.value.trim().toLowerCase();
+    if (!raw) return;
+
+    cliInput.value = '';
+    terminalLog('EXEC', `> ${raw}`);
+
+    const parts = raw.split(/\s+/);
+    const cmd = parts[0];
+    const arg = parts[1];
+
+    switch (cmd) {
+      case 'planner':
+      case 'gacha':
+      case 'pity':
+      case 'tiradas':
+        document.querySelector('[data-tab="planner"]')?.click();
+        terminalLog('SYS', 'Cambiado a contexto: PLANIFICADOR_DE_TIRADAS');
+        break;
+
+      case 'waveplate':
+      case 'stamina':
+      case 'resina':
+      case 'energia':
+        document.querySelector('[data-tab="waveplate"]')?.click();
+        terminalLog('SYS', 'Cambiado a contexto: MONITOR_DE_WAVEPLATE');
+        break;
+
+      case 'secrets':
+      case 'astrite':
+      case 'secretos':
+        document.querySelector('[data-tab="secrets"]')?.click();
+        terminalLog('SYS', 'Cambiado a contexto: FUENTES_DE_ASTRITE');
+        break;
+
+      case 'echo':
+      case 'echoes':
+      case 'ecos':
+      case 'sets':
+        document.querySelector('[data-tab="echoes"]')?.click();
+        terminalLog('SYS', 'Cambiado a contexto: GUIA_DE_ECOS_Y_SONATA');
+        break;
+
+      case 'codes':
+      case 'codigos':
+      case 'promo':
+        document.querySelector('[data-tab="codes"]')?.click();
+        terminalLog('SYS', 'Cambiado a contexto: CODIGOS_PROMOCIONALES');
+        break;
+
+      case 'servers':
+      case 'servidores':
+      case 'sync':
+      case 'kuro':
+        document.querySelector('[data-tab="servers"]')?.click();
+        terminalLog('SYS', 'Cambiado a contexto: SERVIDORES_Y_CONEXION_KURO');
+        break;
+
+      case 'uid':
+        document.querySelector('[data-tab="servers"]')?.click();
+        if (arg) {
+          const uidInput = document.getElementById('in-player-uid');
+          if (uidInput) {
+            uidInput.value = arg;
+            document.getElementById('btn-search-uid')?.click();
+          }
+        }
+        break;
+
+      case 'clear':
+      case 'cls':
+        const stream = document.getElementById('terminal-log-stream');
+        if (stream) stream.innerHTML = '';
+        terminalLog('SYS', 'Consola del terminal reiniciada.');
+        break;
+
+      case 'help':
+      case '?':
+        terminalLog('HELP', 'Comandos disponibles: planner, waveplate, uid [id], echoes, secrets, codes, servers, clear');
+        break;
+
+      default:
+        terminalLog('WARN', `Comando no reconocido: "${cmd}". Escribe "help" para ver la lista de comandos.`);
+    }
+  }
+
+  if (cliInput) {
+    cliInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        executeCommand();
+      }
+    });
+  }
+
+  if (runBtn) {
+    runBtn.addEventListener('click', executeCommand);
+  }
+}
+
+/* ==========================================================================
    Initialization
    ========================================================================== */
 
@@ -646,6 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initWaveplateTracker();
   initServerSync();
   initUidLookup();
+  initTerminalCLI();
   renderSecrets();
   renderEchoes();
   renderCodes();

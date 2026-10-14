@@ -10,21 +10,50 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- CRT Phosphor Scanline Overlay -->
+  <div class="crt-overlay"></div>
 
-  <div class="container">
-    <!-- Solaris Terminal HUD Status Line -->
-    <div class="terminal-hud-header">
-      <div>SOLARIS-3 // TERMINAL OS v2.0 • TACET FIELD FREQUENCY: SYNCHRONIZED</div>
-      <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <span>AUDIO RESONANCE</span>
-        <div class="soundwave">
-          <div class="soundwave-bar"></div>
-          <div class="soundwave-bar"></div>
-          <div class="soundwave-bar"></div>
-          <div class="soundwave-bar"></div>
+  <div class="terminal-window">
+    <!-- Terminal Titlebar -->
+    <div class="terminal-titlebar">
+      <div class="titlebar-left">
+        <div class="window-controls">
+          <span class="win-dot win-close"></span>
+          <span class="win-dot win-min"></span>
+          <span class="win-dot win-max"></span>
         </div>
+        <span>rover@solaris-terminal:~/wuwa-core$ (PID: 4096)</span>
+      </div>
+      <div class="titlebar-right">
+        <span>STATUS: [ONLINE]</span>
+        <span>FREQ: 142.85MHz</span>
+        <span>ENC: TACET-SHA256</span>
       </div>
     </div>
+
+    <!-- Terminal Body -->
+    <div class="terminal-body">
+      <!-- Interactive Quick CLI Bar -->
+      <div class="cli-prompt-bar">
+        <span class="cli-user-tag">rover@solaris-3:~$</span>
+        <input type="text" id="cli-command-input" class="cli-input" placeholder="Escribe un comando o pulsa Enter (ej: planner, waveplate, uid 502891402, codes, echo)..." autocomplete="off">
+        <span class="cursor-blink"></span>
+        <button class="btn btn-primary btn-sm" id="btn-run-cli">[ RUN ]</button>
+      </div>
+
+      <!-- Solaris Terminal HUD Status Line -->
+      <div class="terminal-hud-header">
+        <div>SOLARIS-3 // TERMINAL OS v2.0 • TACET FIELD FREQUENCY: SYNCHRONIZED</div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span>AUDIO RESONANCE</span>
+          <div class="soundwave">
+            <div class="soundwave-bar"></div>
+            <div class="soundwave-bar"></div>
+            <div class="soundwave-bar"></div>
+            <div class="soundwave-bar"></div>
+          </div>
+        </div>
+      </div>
 
     <!-- Header -->
     <header class="header">
@@ -377,7 +406,21 @@
       </div>
     </section>
 
-  </div>
+      <!-- Live Terminal Console Log Drawer -->
+      <div class="terminal-log-console">
+        <div class="console-header">
+          <span>>_ LIVE SYSTEM TELEMETRY &amp; EVENT LOG</span>
+          <span id="log-status-tag" style="color: var(--cyan-accent); font-family: var(--font-mono);">[STREAMING / OK]</span>
+        </div>
+        <div class="console-output" id="terminal-log-stream">
+          <div class="console-line"><span class="log-time">[01:32:00]</span> <span class="log-tag">[KERNEL]</span> <span class="log-msg">Solaris Terminal OS v2.4 initialized. Tacet field frequency calibrated.</span></div>
+          <div class="console-line"><span class="log-time">[01:32:00]</span> <span class="log-tag">[NETWORK]</span> <span class="log-msg">Connected to official server clusters (US-East, EU-Central, Asia-East).</span></div>
+          <div class="console-line"><span class="log-time">[01:32:00]</span> <span class="log-tag">[BATTERY]</span> <span class="log-msg">Waveplate generator active: 1 unit / 360 seconds. Storage cap: 240.</span></div>
+        </div>
+      </div>
+
+    </div> <!-- /.terminal-body -->
+  </div> <!-- /.terminal-window -->
 
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
