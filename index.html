@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WuWa Companion — Herramienta & Planificador de Wuthering Waves</title>
+  <meta name="description" content="Planificador de tiradas, calculadora de Pity y Astrites, seguimiento de Waveplate en tiempo real, guía de farmeo de Ecos y códigos promocionales para Wuthering Waves.">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <img src="assets/icon.svg" alt="WuWa Companion Crest" class="brand-icon">
+        <div>
+          <div class="brand-title">WuWa Companion</div>
+          <div class="brand-subtitle">Asistente de Recursos, Tiradas y Guía de Solaris-3</div>
+        </div>
+      </div>
+
+      <div class="header-badges">
+        <div class="waveplate-pill" title="Waveplate actual calculado">
+          <span>⚡ Waveplate:</span>
+          <strong id="top-waveplate-val">140/240</strong>
+        </div>
+
+        <a href="https://github.com/BladeMXGit/wuwa-assistant" target="_blank" rel="noopener noreferrer" class="btn-github">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav" aria-label="Secciones del Asistente">
+      <button class="nav-tab active" data-tab="planner">🎯 Planificador de Tiradas & Pity</button>
+      <button class="nav-tab" data-tab="waveplate">⚡ Waveplate & Resina</button>
+      <button class="nav-tab" data-tab="secrets">🧭 Secretos & Fuentes de Astrite</button>
+      <button class="nav-tab" data-tab="echoes">🔮 Guía de Ecos & Sets</button>
+      <button class="nav-tab" data-tab="codes">🎁 Códigos Promocionales</button>
+    </nav>
+
+    <!-- TAB 1: Tiradas & Pity Planner -->
+    <section class="tab-view active" id="view-planner">
+      <div class="grid-2">
+        <!-- Form Inputs -->
+        <div class="card">
+          <div class="card-title">💎 Tus Recursos Actuales</div>
+          <div class="card-desc">Ingresa tus ahorros para calcular tiradas exactas y probabilidades.</div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <span>Astrite Actual</span>
+              <span style="color: var(--wuwa-cyan);">160 Astrite = 1 Tirada</span>
+            </div>
+            <input type="number" id="in-astrite" class="input" min="0" step="10">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Mareas Radiantes (Personaje)</label>
+              <input type="number" id="in-radiant" class="input" min="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mareas de Forja (Arma)</label>
+              <input type="number" id="in-forging" class="input" min="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <span>Pity Acumulado en Banner Promocional</span>
+              <strong id="in-pity-val" style="color: var(--wuwa-gold);">25</strong>
+            </div>
+            <input type="range" id="in-pity" min="0" max="80" style="width: 100%;">
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+              <input type="checkbox" id="in-guaranteed">
+              <span>¿Tienes personaje garantizado? (Perdiste el último 50/50)</span>
+            </label>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
+            <div class="card-title" style="font-size: 0.95rem;">📅 Proyección para el Próximo Banner</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label">Días restantes</label>
+                <input type="number" id="in-days" class="input" min="0" max="90">
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem; justify-content: center; font-size: 0.85rem;">
+                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                  <input type="checkbox" id="in-lunite" checked>
+                  <span>Pase Lunite (+90/día)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                  <input type="checkbox" id="in-podcast">
+                  <span>Podcast Pionero (+5 tiradas)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculation Results -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="grid-3">
+            <div class="metric-box">
+              <div class="metric-val" id="out-current-pulls">0</div>
+              <div class="metric-label">Tiradas Actuales</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" id="out-future-pulls" style="color: var(--wuwa-cyan);">0</div>
+              <div class="metric-label">Tiradas Estimadas</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val" id="out-guaranteed-needed" style="color: var(--wuwa-rose);">0</div>
+              <div class="metric-label">Para Garantizado</div>
+            </div>
+          </div>
+
+          <div class="pity-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+              <strong>Estado del Pity (Máx 80)</strong>
+              <span id="pity-status-text" style="color: var(--wuwa-cyan); font-family: var(--font-mono); font-size: 0.75rem;">-</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="pity-bar-fill" style="width: 30%;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-dim);">
+              <span>0 (Inicio)</span>
+              <span>65-70 (Soft Pity)</span>
+              <span>80 (Hard Pity)</span>
+            </div>
+          </div>
+
+          <div class="card" style="background: rgba(0, 242, 254, 0.04); border-color: rgba(0, 242, 254, 0.25);">
+            <div class="card-title" style="color: var(--wuwa-gold); font-size: 0.95rem;">💡 Reglas de Oro del Gacha de WuWa</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.825rem; color: var(--text-muted); line-height: 1.6; margin-top: 0.5rem;">
+              <li><strong>¡El banner de armas tiene 100% de garantía!</strong> No hay 50/50 en armas en Wuthering Waves (a diferencia de Genshin). Si tiras 80 veces, el arma promocional es 100% tuya.</li>
+              <li><strong>Soft Pity:</strong> A partir de la tirada 65, la probabilidad de sacar 5 estrellas aumenta de manera exponencial.</li>
+              <li><strong>Ahorro óptimo:</strong> Ten siempre 160 tiradas reservadas si quieres asegurarte un personaje nuevo desde cero perdiendo el 50/50.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Waveplate Tracker -->
+    <section class="tab-view" id="view-waveplate">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">⚡ Contador de Waveplate en Vivo</div>
+          <div class="card-desc">El Waveplate se regenera a razón de 1 unidad cada 6 minutos (10 por hora, 24 horas de 0 a 240).</div>
+
+          <div class="form-group">
+            <div class="form-label">
+              <span>Waveplate Actual en tu juego</span>
+              <span style="color: var(--wuwa-cyan);">Límite: 240</span>
+            </div>
+            <input type="number" id="in-waveplate" class="input" min="0" max="240" value="140" style="font-size: 1.25rem; font-weight: 700;">
+          </div>
+
+          <div class="progress-bar-bg" style="height: 14px;">
+            <div class="progress-bar-fill" id="waveplate-bar-fill" style="width: 58%;"></div>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary" id="btn-spend-40">-40 (Jefe de Mundo)</button>
+            <button class="btn btn-secondary" id="btn-spend-60">-60 (Tacet Field / Semanal)</button>
+            <button class="btn btn-primary" id="btn-refill-60">+60 (Solvente Cristalino)</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="metric-box">
+            <div class="metric-val" id="waveplate-countdown">--</div>
+            <div class="metric-label">Tiempo para Recarga Completa</div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="font-size: 0.95rem;">⏰ Momento exacto de recarga</div>
+            <div id="waveplate-cap-time" style="font-size: 1.1rem; color: var(--wuwa-cyan); font-weight: 700; margin: 0.5rem 0;">Calculando...</div>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">
+              Consejo: Si no puedes jugar hoy, utiliza el sintetizador en Jinzhou para convertir 60 Waveplates en <strong>Placas de Cristal Ondulado</strong> y guardarlas para el fin de semana.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Secretos & Fuentes de Astrite -->
+    <section class="tab-view" id="view-secrets">
+      <div class="grid-2">
+        <div>
+          <div class="card-title" style="margin-bottom: 1rem;">🔄 Fuentes Periódicas de Astrite</div>
+          <div id="recurring-list"></div>
+        </div>
+        <div>
+          <div class="card-title" style="margin-bottom: 1rem;">🧭 Secretos, Puzzles y Astrites Ocultos</div>
+          <div id="secrets-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Guía de Ecos -->
+    <section class="tab-view" id="view-echoes">
+      <div style="margin-bottom: 1.5rem;">
+        <div class="card-title">🔮 Sets de Efectos de Sonata</div>
+        <div class="card-desc">Equipa 5 piezas del mismo elemento para desbloquear el potenciador masivo de daño del +30%.</div>
+        <div class="grid-3" id="sonata-list"></div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="card-title" style="margin-bottom: 1rem;">⚖️ Distribución de Costes: ¿4-3-3-1-1 o 4-4-1-1?</div>
+          <div id="configs-list"></div>
+        </div>
+        <div>
+          <div class="card-title" style="margin-bottom: 1rem;">📊 Economía del Banco de Datos (Data Bank)</div>
+          <div id="databank-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: Códigos Promocionales -->
+    <section class="tab-view" id="view-codes">
+      <div class="grid-2">
+        <div>
+          <div class="card-title" style="margin-bottom: 1rem;">🎁 Códigos de Canje Activos</div>
+          <div id="codes-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">📖 ¿Cómo canjear códigos en Wuthering Waves?</div>
+          <div style="font-size: 0.85rem; color: var(--wuwa-gold); font-weight: 600; margin-bottom: 0.75rem;">
+            Requisito: Nivel de Unión 2
+          </div>
+          <ol id="redeem-guide-steps" style="padding-left: 1.25rem;"></ol>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Application Controller -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
