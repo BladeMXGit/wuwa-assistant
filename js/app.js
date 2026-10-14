@@ -92,12 +92,37 @@ function initPullsPlanner() {
   const inAstrite = document.getElementById('in-astrite');
   const inRadiant = document.getElementById('in-radiant');
   const inForging = document.getElementById('in-forging');
+  const inDays = document.getElementById('in-days');
   const inPity = document.getElementById('in-pity');
   const inPityVal = document.getElementById('in-pity-val');
   const inGuaranteed = document.getElementById('in-guaranteed');
-  const inDays = document.getElementById('in-days');
   const inLunite = document.getElementById('in-lunite');
   const inPodcast = document.getElementById('in-podcast');
+
+  // Sliders & Stacked Elements
+  const rngAstrite = document.getElementById('rng-astrite');
+  const rngRadiant = document.getElementById('rng-radiant');
+  const rngForging = document.getElementById('rng-forging');
+  const rngDays = document.getElementById('rng-days');
+
+  const fillAstrite = document.getElementById('fill-astrite');
+  const fillRadiant = document.getElementById('fill-radiant');
+  const fillForging = document.getElementById('fill-forging');
+  const fillDays = document.getElementById('fill-days');
+  const pitySliderFill = document.getElementById('pity-slider-fill');
+
+  const lblAstrite = document.getElementById('lbl-astrite');
+  const lblRadiant = document.getElementById('lbl-radiant');
+  const lblForging = document.getElementById('lbl-forging');
+  const lblDays = document.getElementById('lbl-days');
+  const lblPityDisplay = document.getElementById('lbl-pity-display');
+  const pityTierTag = document.getElementById('pity-tier-tag');
+
+  // Top Swatches
+  const swatchAstrite = document.getElementById('swatch-astrite-val');
+  const swatchRadiant = document.getElementById('swatch-radiant-val');
+  const swatchForging = document.getElementById('swatch-forging-val');
+  const swatchWaveplate = document.getElementById('swatch-waveplate-val');
 
   // Outputs
   const outCurrentPulls = document.getElementById('out-current-pulls');
@@ -106,22 +131,45 @@ function initPullsPlanner() {
   const pityBarFill = document.getElementById('pity-bar-fill');
   const pityStatusText = document.getElementById('pity-status-text');
 
-  // Load state to inputs
-  inAstrite.value = STATE.astrite;
-  inRadiant.value = STATE.radiantTides;
-  inForging.value = STATE.forgingTides;
-  inPity.value = STATE.pity;
-  inPityVal.textContent = STATE.pity;
-  inGuaranteed.checked = STATE.isGuaranteed;
-  inDays.value = STATE.daysRemaining;
-  inLunite.checked = STATE.hasLunite;
-  inPodcast.checked = STATE.hasPodcast;
+  // Sync state to inputs
+  function syncInputsFromState() {
+    if (inAstrite) inAstrite.value = STATE.astrite;
+    if (rngAstrite) rngAstrite.value = STATE.astrite;
+    if (lblAstrite) lblAstrite.textContent = STATE.astrite.toLocaleString();
+    if (fillAstrite) fillAstrite.style.width = `${Math.min(100, (STATE.astrite / 25000) * 100)}%`;
+
+    if (inRadiant) inRadiant.value = STATE.radiantTides;
+    if (rngRadiant) rngRadiant.value = STATE.radiantTides;
+    if (lblRadiant) lblRadiant.textContent = STATE.radiantTides;
+    if (fillRadiant) fillRadiant.style.width = `${Math.min(100, (STATE.radiantTides / 80) * 100)}%`;
+
+    if (inForging) inForging.value = STATE.forgingTides;
+    if (rngForging) rngForging.value = STATE.forgingTides;
+    if (lblForging) lblForging.textContent = STATE.forgingTides;
+    if (fillForging) fillForging.style.width = `${Math.min(100, (STATE.forgingTides / 80) * 100)}%`;
+
+    if (inDays) inDays.value = STATE.daysRemaining;
+    if (rngDays) rngDays.value = STATE.daysRemaining;
+    if (lblDays) lblDays.textContent = STATE.daysRemaining;
+    if (fillDays) fillDays.style.width = `${Math.min(100, (STATE.daysRemaining / 90) * 100)}%`;
+
+    if (inPity) inPity.value = STATE.pity;
+    if (inPityVal) inPityVal.textContent = STATE.pity;
+    if (lblPityDisplay) lblPityDisplay.textContent = `${STATE.pity} / 80`;
+    if (pitySliderFill) pitySliderFill.style.width = `${Math.min(100, (STATE.pity / 80) * 100)}%`;
+
+    if (inGuaranteed) inGuaranteed.checked = STATE.isGuaranteed;
+    if (inLunite) inLunite.checked = STATE.hasLunite;
+    if (inPodcast) inPodcast.checked = STATE.hasPodcast;
+  }
+
+  syncInputsFromState();
 
   function calculate() {
     // Current pulls
     const astritePulls = Math.floor(STATE.astrite / 160);
     const totalCurrentPulls = astritePulls + STATE.radiantTides;
-    outCurrentPulls.textContent = totalCurrentPulls;
+    if (outCurrentPulls) outCurrentPulls.textContent = totalCurrentPulls;
 
     // Daily income during daysRemaining
     const dailyQuestsAstrite = STATE.daysRemaining * 60;
@@ -136,30 +184,36 @@ function initPullsPlanner() {
     const futurePullsGained = Math.floor(futureAstriteGained / 160) + podcastTides;
     const totalEstPulls = totalCurrentPulls + futurePullsGained;
 
-    outFuturePulls.textContent = totalEstPulls;
+    if (outFuturePulls) outFuturePulls.textContent = totalEstPulls;
 
     // Pity calculations
-    // Hard pity = 80
-    // If not guaranteed: worst case = (80 - currentPity) + 80 = 160 - currentPity
-    // If guaranteed: worst case = 80 - currentPity
     const pullsToNext5Star = Math.max(0, 80 - STATE.pity);
     const pullsToGuaranteed = STATE.isGuaranteed ? pullsToNext5Star : pullsToNext5Star + 80;
 
-    outGuaranteedNeeded.textContent = pullsToGuaranteed;
+    if (outGuaranteedNeeded) outGuaranteedNeeded.textContent = pullsToGuaranteed;
 
-    // Update pity bar (80 max)
+    // Update pity bar
     const pct = Math.min(100, Math.round((STATE.pity / 80) * 100));
-    pityBarFill.style.width = `${pct}%`;
+    if (pityBarFill) pityBarFill.style.width = `${pct}%`;
+    if (pitySliderFill) pitySliderFill.style.width = `${pct}%`;
 
-    let pityTier = 'Tiradas iniciales';
+    let pityTier = 'INICIAL';
     if (STATE.pity >= 65) {
-      pityTier = '¡ZONA DE SOFT PITY! (Probabilidad muy alta de 5★)';
+      pityTier = 'SOFT PITY (ALTO)';
     } else if (STATE.pity >= 40) {
-      pityTier = 'Pity intermedio';
+      pityTier = 'INTERMEDIO';
     }
-    pityStatusText.textContent = `${STATE.pity}/80 • ${STATE.isGuaranteed ? 'Garantizado (100%)' : '50/50'} • ${pityTier}`;
+    if (pityTierTag) pityTierTag.textContent = pityTier;
+    if (pityStatusText) {
+      pityStatusText.textContent = `${STATE.pity}/80 • ${STATE.isGuaranteed ? '100% GARANTIZADO' : '50/50'} • ${pityTier}`;
+    }
 
-    // Save to storage
+    // Update Top Swatches
+    if (swatchAstrite) swatchAstrite.textContent = STATE.astrite.toLocaleString();
+    if (swatchRadiant) swatchRadiant.textContent = STATE.radiantTides;
+    if (swatchForging) swatchForging.textContent = STATE.forgingTides;
+    if (swatchWaveplate) swatchWaveplate.textContent = `${STATE.currentWaveplate}/240`;
+
     saveState();
   }
 
@@ -174,38 +228,79 @@ function initPullsPlanner() {
     localStorage.setItem('wuwa_podcast', STATE.hasPodcast);
   }
 
-  inAstrite.addEventListener('input', () => {
-    STATE.astrite = Math.max(0, parseInt(inAstrite.value, 10) || 0);
+  // Event Listeners for Range Sliders
+  rngAstrite?.addEventListener('input', () => {
+    STATE.astrite = parseInt(rngAstrite.value, 10) || 0;
+    if (inAstrite) inAstrite.value = STATE.astrite;
+    if (lblAstrite) lblAstrite.textContent = STATE.astrite.toLocaleString();
+    if (fillAstrite) fillAstrite.style.width = `${Math.min(100, (STATE.astrite / 25000) * 100)}%`;
     calculate();
   });
-  inRadiant.addEventListener('input', () => {
-    STATE.radiantTides = Math.max(0, parseInt(inRadiant.value, 10) || 0);
+
+  rngRadiant?.addEventListener('input', () => {
+    STATE.radiantTides = parseInt(rngRadiant.value, 10) || 0;
+    if (inRadiant) inRadiant.value = STATE.radiantTides;
+    if (lblRadiant) lblRadiant.textContent = STATE.radiantTides;
+    if (fillRadiant) fillRadiant.style.width = `${Math.min(100, (STATE.radiantTides / 80) * 100)}%`;
     calculate();
   });
-  inForging.addEventListener('input', () => {
-    STATE.forgingTides = Math.max(0, parseInt(inForging.value, 10) || 0);
+
+  rngForging?.addEventListener('input', () => {
+    STATE.forgingTides = parseInt(rngForging.value, 10) || 0;
+    if (inForging) inForging.value = STATE.forgingTides;
+    if (lblForging) lblForging.textContent = STATE.forgingTides;
+    if (fillForging) fillForging.style.width = `${Math.min(100, (STATE.forgingTides / 80) * 100)}%`;
     calculate();
   });
-  inPity.addEventListener('input', () => {
-    STATE.pity = parseInt(inPity.value, 10);
-    inPityVal.textContent = STATE.pity;
+
+  rngDays?.addEventListener('input', () => {
+    STATE.daysRemaining = parseInt(rngDays.value, 10) || 0;
+    if (inDays) inDays.value = STATE.daysRemaining;
+    if (lblDays) lblDays.textContent = STATE.daysRemaining;
+    if (fillDays) fillDays.style.width = `${Math.min(100, (STATE.daysRemaining / 90) * 100)}%`;
     calculate();
   });
-  inGuaranteed.addEventListener('change', () => {
+
+  inPity?.addEventListener('input', () => {
+    STATE.pity = parseInt(inPity.value, 10) || 0;
+    if (inPityVal) inPityVal.textContent = STATE.pity;
+    if (lblPityDisplay) lblPityDisplay.textContent = `${STATE.pity} / 80`;
+    calculate();
+  });
+
+  inGuaranteed?.addEventListener('change', () => {
     STATE.isGuaranteed = inGuaranteed.checked;
     calculate();
   });
-  inDays.addEventListener('input', () => {
-    STATE.daysRemaining = Math.max(0, parseInt(inDays.value, 10) || 0);
-    calculate();
-  });
-  inLunite.addEventListener('change', () => {
+
+  inLunite?.addEventListener('change', () => {
     STATE.hasLunite = inLunite.checked;
     calculate();
   });
-  inPodcast.addEventListener('change', () => {
+
+  inPodcast?.addEventListener('change', () => {
     STATE.hasPodcast = inPodcast.checked;
     calculate();
+  });
+
+  // Save Image & Export SVG style action buttons
+  document.getElementById('btn-save-planner')?.addEventListener('click', () => {
+    saveState();
+    showToast('Ahorros y parámetros calculados y guardados!');
+  });
+
+  document.getElementById('btn-reset-planner')?.addEventListener('click', () => {
+    STATE.astrite = 3200;
+    STATE.radiantTides = 10;
+    STATE.forgingTides = 0;
+    STATE.pity = 25;
+    STATE.isGuaranteed = false;
+    STATE.daysRemaining = 20;
+    STATE.hasLunite = true;
+    STATE.hasPodcast = false;
+    syncInputsFromState();
+    calculate();
+    showToast('Parámetros reiniciados a los valores estándar.');
   });
 
   calculate();
@@ -217,10 +312,13 @@ function initPullsPlanner() {
 
 function initWaveplateTracker() {
   const waveInput = document.getElementById('in-waveplate');
-  const waveFill = document.getElementById('waveplate-bar-fill');
+  const waveFill = document.getElementById('waveplate-slider-fill');
+  const waveDisplayText = document.getElementById('waveplate-display-text');
+  const wavePctTag = document.getElementById('waveplate-pct-tag');
   const waveCapTime = document.getElementById('waveplate-cap-time');
   const waveCountdown = document.getElementById('waveplate-countdown');
   const topPillVal = document.getElementById('top-waveplate-val');
+  const swatchWaveplate = document.getElementById('swatch-waveplate-val');
 
   function getCalculatedWaveplate() {
     const elapsedMinutes = (Date.now() - STATE.waveplateUpdatedAt) / (1000 * 60);
@@ -230,34 +328,38 @@ function initWaveplateTracker() {
 
   function update() {
     const current = getCalculatedWaveplate();
-    waveInput.value = current;
-    topPillVal.textContent = `${current}/240`;
+    if (waveInput) waveInput.value = current;
+    if (topPillVal) topPillVal.textContent = `${current}/240`;
+    if (swatchWaveplate) swatchWaveplate.textContent = `${current}/240`;
+    if (waveDisplayText) waveDisplayText.textContent = `${current} / 240`;
 
     const pct = Math.min(100, Math.round((current / 240) * 100));
-    waveFill.style.width = `${pct}%`;
+    if (waveFill) waveFill.style.width = `${pct}%`;
+    if (wavePctTag) wavePctTag.textContent = `${pct}%`;
 
     const remaining = 240 - current;
     if (remaining <= 0) {
-      waveCapTime.textContent = '¡Completamente llena! (240/240)';
-      waveCountdown.textContent = '0h 0m';
+      if (waveCapTime) waveCapTime.textContent = '¡COMPLETAMENTE LLENA! (240/240)';
+      if (waveCountdown) waveCountdown.textContent = '00:00:00';
     } else {
       const minutesNeeded = remaining * 6;
       const hours = Math.floor(minutesNeeded / 60);
       const mins = minutesNeeded % 60;
-      waveCountdown.textContent = `${hours}h ${mins}m restantes`;
+      if (waveCountdown) waveCountdown.textContent = `${String(hours).padStart(2, '0')}h ${String(mins).padStart(2, '0')}m`;
 
       const capDate = new Date(Date.now() + minutesNeeded * 60 * 1000);
-      waveCapTime.textContent = `Lleno a las ${capDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (${capDate.toLocaleDateString()})`;
+      if (waveCapTime) {
+        waveCapTime.textContent = `CAP: ${capDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} (${capDate.toLocaleDateString()})`;
+      }
     }
   }
 
-  waveInput.addEventListener('change', () => {
+  waveInput?.addEventListener('input', () => {
     STATE.currentWaveplate = Math.max(0, Math.min(240, parseInt(waveInput.value, 10) || 0));
     STATE.waveplateUpdatedAt = Date.now();
     localStorage.setItem('wuwa_waveplate', STATE.currentWaveplate);
     localStorage.setItem('wuwa_waveplate_time', STATE.waveplateUpdatedAt);
     update();
-    showToast('Nivel de Waveplate actualizado!');
   });
 
   // Action buttons
@@ -289,6 +391,15 @@ function initWaveplateTracker() {
     localStorage.setItem('wuwa_waveplate_time', STATE.waveplateUpdatedAt);
     update();
     showToast('Usado 1 Solvente Cristalino (+60 Waveplates)');
+  });
+
+  document.getElementById('btn-fill-240')?.addEventListener('click', () => {
+    STATE.currentWaveplate = 240;
+    STATE.waveplateUpdatedAt = Date.now();
+    localStorage.setItem('wuwa_waveplate', STATE.currentWaveplate);
+    localStorage.setItem('wuwa_waveplate_time', STATE.waveplateUpdatedAt);
+    update();
+    showToast('Waveplate ajustado al límite máximo (240/240)');
   });
 
   update();

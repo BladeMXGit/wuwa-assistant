@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+  <defs>
+    <!-- Organic grunge filter for rough dripping / hand-cut edges -->
+    <filter id="dither-distress" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+
+  <g filter="url(#dither-distress)" fill="#cfd1d8">
+    <!-- W -->
+    <path d="M 8 10 L 20 10 L 28 62 L 38 10 L 48 10 L 58 62 L 67 10 L 78 10 L 65 74 L 52 74 L 43 32 L 35 74 L 22 74 Z" />
+    
+    <!-- U -->
+    <path d="M 88 10 L 100 10 L 100 54 Q 100 74 118 74 Q 136 74 136 54 L 136 10 L 148 10 L 148 54 Q 148 83 118 83 Q 88 83 88 54 Z" />
+
+    <!-- W -->
+    <path d="M 158 10 L 170 10 L 178 62 L 188 10 L 198 10 L 208 62 L 217 10 L 228 10 L 215 74 L 202 74 L 193 32 L 185 74 L 172 74 Z" />
+
+    <!-- A -->
+    <path d="M 238 74 L 249 74 L 255 54 L 273 54 L 279 74 L 292 74 L 269 10 L 258 10 Z M 258 45 L 264 24 L 270 45 Z" />
+
+    <!-- LAB (Underneath, indented) -->
+    <!-- L -->
+    <path d="M 148 82 L 158 82 L 158 110 L 178 110 L 178 118 L 148 118 Z" />
+    
+    <!-- A -->
+    <path d="M 188 118 L 198 118 L 202 101 L 216 101 L 220 118 L 230 118 L 213 82 L 204 82 Z M 205 94 L 209 79 L 213 94 Z" />
+
+    <!-- B -->
+    <path d="M 238 82 L 256 82 Q 268 82 268 91 Q 268 95 264 97 Q 270 99 270 107 Q 270 118 256 118 L 238 118 Z M 248 89 L 248 95 L 256 95 Q 260 95 260 92 Q 260 89 256 89 Z M 248 102 L 248 110 L 257 110 Q 261 110 261 106 Q 261 102 257 102 Z" />
+  </g>
+</svg>

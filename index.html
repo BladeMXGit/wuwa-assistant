@@ -3,161 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WuWa Companion — Herramienta & Planificador de Wuthering Waves</title>
+  <title>WUWA LAB — Herramienta & Planificador de Wuthering Waves</title>
   <meta name="description" content="Planificador de tiradas, calculadora de Pity y Astrites, seguimiento de Waveplate en tiempo real, guía de farmeo de Ecos y códigos promocionales para Wuthering Waves.">
   <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- CRT Phosphor Scanline Overlay -->
+  <!-- CRT Scanline Overlay -->
   <div class="crt-overlay"></div>
 
   <div class="container">
-    <!-- Solaris Terminal HUD Status Line -->
-    <div class="terminal-hud-header">
-      <div>SOLARIS-3 // TERMINAL OS v2.0 • TACET FIELD FREQUENCY: SYNCHRONIZED</div>
-      <div style="display: flex; align-items: center; gap: 0.75rem;">
-        <span>AUDIO RESONANCE</span>
-        <div class="soundwave">
-          <div class="soundwave-bar"></div>
-          <div class="soundwave-bar"></div>
-          <div class="soundwave-bar"></div>
-          <div class="soundwave-bar"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Header -->
-    <header class="header">
-      <div class="brand">
-        <img src="assets/icon.svg" alt="WuWa Companion Tacet Mark" class="brand-icon">
-        <div>
-          <div class="brand-title">
-            WuWa Companion
-            <span class="brand-badge">TACET CORE</span>
+    <!-- Dither Lab Header -->
+    <header class="lab-header">
+      <div class="lab-title-row">
+        <div class="lab-logo-box">
+          <img src="assets/wuwa-lab-logo.svg" alt="WUWA LAB" class="lab-logo-svg">
+          <div class="lab-btn-row">
+            <button class="dither-btn-mini" id="btn-quick-status">
+              <span class="soundwave">
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+                <span class="soundwave-bar"></span>
+              </span>
+              <span>WAVEPLATE: <strong id="top-waveplate-val">140/240</strong></span>
+            </button>
+            <a href="https://github.com/BladeMXGit/wuwa-assistant" target="_blank" rel="noopener noreferrer" class="dither-btn-mini">
+              GITHUB // REPO ↗
+            </a>
           </div>
-          <div class="brand-subtitle">Asistente de Recursos, Tiradas y Guía de Solaris-3</div>
-        </div>
-      </div>
-
-      <div class="header-badges">
-        <div class="waveplate-pill" title="Waveplate actual calculado">
-          <span>⚡ Waveplate:</span>
-          <strong id="top-waveplate-val">140/240</strong>
         </div>
 
-        <a href="https://github.com/BladeMXGit/wuwa-assistant" target="_blank" rel="noopener noreferrer" class="btn-github">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-          </svg>
-          <span>GitHub</span>
-        </a>
+        <div class="lab-badge-row">
+          <img src="assets/icon.svg" alt="Tacet Mark" class="lab-tacet-icon">
+          <div class="lab-telemetry-meta">
+            <strong>SOLARIS-3 // CORE v2.4</strong>
+            <span>TACET FIELD: SYNCHRONIZED</span><br>
+            <span>AUDIO RESONANCE: STABLE</span>
+          </div>
+        </div>
       </div>
     </header>
 
-    <!-- Gacha Currencies Visual Strip -->
-    <div class="currencies-strip">
-      <div class="currency-card">
-        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><polygon points="16,4 27,16 16,28 5,16" fill="#ffd159" fill-opacity="0.25" stroke="#ffd159" stroke-width="1.8"/><polygon points="16,8 23,16 16,24 9,16" fill="#ffd159" fill-opacity="0.8"/></svg>
-        <div class="currency-info">
-          <strong>Astrite (Astrita)</strong>
-          <small>Moneda principal (160 = 1 tirada)</small>
+    <!-- Swatches Strip: COLOR #1, COLOR #2 Style -->
+    <div class="swatches-strip">
+      <div class="swatch-group">
+        <div class="swatch-label">RESOURCE #1</div>
+        <div class="swatch-box">
+          <span class="swatch-color" style="background: #ffd159;"></span>
+          <span class="swatch-value" id="swatch-astrite-val">3,200</span>
+          <span class="swatch-unit">ASTRITE</span>
         </div>
       </div>
-      <div class="currency-card">
-        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><circle cx="16" cy="16" r="12" fill="#ffd159" fill-opacity="0.2" stroke="#ffd159" stroke-width="2"/><circle cx="16" cy="16" r="7" fill="#ffd159" stroke="#ffffff" stroke-width="1.5"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="#ffd159" stroke-width="1.2" opacity="0.6"/></svg>
-        <div class="currency-info">
-          <strong>Marea Radiante</strong>
-          <small>Personaje promocional 5★</small>
+      <div class="swatch-group">
+        <div class="swatch-label">RESOURCE #2</div>
+        <div class="swatch-box">
+          <span class="swatch-color" style="background: #fff2b2;"></span>
+          <span class="swatch-value" id="swatch-radiant-val">10</span>
+          <span class="swatch-unit">RADIANT</span>
         </div>
       </div>
-      <div class="currency-card">
-        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><circle cx="16" cy="16" r="12" fill="#c084fc" fill-opacity="0.2" stroke="#c084fc" stroke-width="2"/><circle cx="16" cy="16" r="7" fill="#c084fc" stroke="#ffffff" stroke-width="1.5"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="#c084fc" stroke-width="1.2" opacity="0.6"/></svg>
-        <div class="currency-info">
-          <strong>Marea de Forja</strong>
-          <small>Arma promocional 5★ (100% garantizado)</small>
+      <div class="swatch-group">
+        <div class="swatch-label">RESOURCE #3</div>
+        <div class="swatch-box">
+          <span class="swatch-color" style="background: #c084fc;"></span>
+          <span class="swatch-value" id="swatch-forging-val">0</span>
+          <span class="swatch-unit">FORGING</span>
         </div>
       </div>
-      <div class="currency-card">
-        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><circle cx="16" cy="16" r="12" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="2"/><circle cx="16" cy="16" r="7" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="#38bdf8" stroke-width="1.2" opacity="0.6"/></svg>
-        <div class="currency-info">
-          <strong>Marea Lustrosa</strong>
-          <small>Banners permanentes estándar</small>
+      <div class="swatch-group">
+        <div class="swatch-label">RESOURCE #4</div>
+        <div class="swatch-box">
+          <span class="swatch-color" style="background: #00f2fe;"></span>
+          <span class="swatch-value" id="swatch-waveplate-val">140</span>
+          <span class="swatch-unit">WAVEPLATE</span>
         </div>
       </div>
     </div>
 
-    <!-- Navigation Tabs -->
+    <!-- Navigation Tabs (Flat Brutalist Tabs) -->
     <nav class="tabs-nav" aria-label="Secciones del Asistente">
-      <button class="nav-tab active" data-tab="planner">🎯 Planificador de Tiradas & Pity</button>
-      <button class="nav-tab" data-tab="waveplate">⚡ Waveplate & Resina</button>
-      <button class="nav-tab" data-tab="secrets">🧭 Secretos & Fuentes de Astrite</button>
-      <button class="nav-tab" data-tab="echoes">🔮 Guía de Ecos & Sets</button>
-      <button class="nav-tab" data-tab="codes">🎁 Códigos Promocionales</button>
-      <button class="nav-tab" data-tab="servers">🌐 Servidores & Sync en Vivo</button>
+      <button class="nav-tab active" data-tab="planner">01 // PULLS &amp; PITY</button>
+      <button class="nav-tab" data-tab="waveplate">02 // WAVEPLATE</button>
+      <button class="nav-tab" data-tab="secrets">03 // SECRETS &amp; ASTRITES</button>
+      <button class="nav-tab" data-tab="echoes">04 // ECHO SONATAS</button>
+      <button class="nav-tab" data-tab="codes">05 // PROMO CODES</button>
+      <button class="nav-tab" data-tab="servers">06 // SERVERS &amp; UID</button>
     </nav>
 
     <!-- TAB 1: Tiradas & Pity Planner -->
     <section class="tab-view active" id="view-planner">
       <div class="grid-2">
-        <!-- Form Inputs -->
+        <!-- Form Inputs (Dither Lab Style Controls) -->
         <div class="card">
-          <div class="card-title">💎 Tus Recursos Actuales</div>
-          <div class="card-desc">Ingresa tus ahorros para calcular tiradas exactas y probabilidades.</div>
+          <div class="dither-label">ALGORITHM // BANNER TARGET</div>
+          <select id="sel-banner-type" class="dither-select">
+            <option value="featured-char">Banner Promocional de Personaje 5★ (Soft Pity: 65 / Hard: 80)</option>
+            <option value="featured-weapon">Banner Promocional de Arma 5★ (100% Garantizado / Hard: 80)</option>
+            <option value="standard-char">Banner Estándar Permanente (Marea Lustrosa)</option>
+          </select>
 
-          <div class="form-group">
-            <div class="form-label">
-              <span>Astrite Actual</span>
-              <span style="color: var(--wuwa-cyan);">160 Astrite = 1 Tirada</span>
+          <!-- Pity Brutalist Slider (like THRESHOLD 0.50) -->
+          <div style="margin-top: 1.25rem;">
+            <div class="dither-label">
+              <span>THRESHOLD // PITY ACUMULADO</span>
+              <span id="in-pity-val" style="color: var(--gold-primary);">25</span>
             </div>
-            <input type="number" id="in-astrite" class="input" min="0" step="10">
+            <div class="dither-bar-track">
+              <div class="dither-bar-fill" id="pity-slider-fill" style="width: 31%;"></div>
+              <div class="dither-bar-text">
+                <span>PITY: <strong id="lbl-pity-display">25 / 80</strong></span>
+                <span id="pity-tier-tag" style="font-size: 0.72rem;">TIER INICIAL</span>
+              </div>
+              <input type="range" id="in-pity" class="dither-range-input" min="0" max="80" value="25">
+            </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div class="form-group">
-              <label class="form-label">Mareas Radiantes (Personaje)</label>
-              <input type="number" id="in-radiant" class="input" min="0">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Mareas de Forja (Arma)</label>
-              <input type="number" id="in-forging" class="input" min="0">
+          <!-- Stacked Sliders (like Contrast, Midtones, Highlights, Scale) -->
+          <div style="margin-top: 1.25rem;">
+            <div class="dither-label">PARAMETERS // RECURSOS Y TIEMPO</div>
+            <div class="dither-stacked-bars">
+              <div class="dither-bar-track">
+                <div class="dither-bar-fill" id="fill-astrite" style="width: 25%;"></div>
+                <div class="dither-bar-text">
+                  <span>Astrite: <strong id="lbl-astrite">3200</strong></span>
+                  <span style="font-size: 0.72rem;">(160 = 1 Pull)</span>
+                </div>
+                <input type="range" id="rng-astrite" class="dither-range-input" min="0" max="25000" step="160" value="3200">
+              </div>
+
+              <div class="dither-bar-track">
+                <div class="dither-bar-fill" id="fill-radiant" style="width: 12%;"></div>
+                <div class="dither-bar-text">
+                  <span>Mareas Radiantes: <strong id="lbl-radiant">10</strong></span>
+                  <span style="font-size: 0.72rem;">(Personaje)</span>
+                </div>
+                <input type="range" id="rng-radiant" class="dither-range-input" min="0" max="80" value="10">
+              </div>
+
+              <div class="dither-bar-track">
+                <div class="dither-bar-fill" id="fill-forging" style="width: 0%;"></div>
+                <div class="dither-bar-text">
+                  <span>Mareas de Forja: <strong id="lbl-forging">0</strong></span>
+                  <span style="font-size: 0.72rem;">(Arma)</span>
+                </div>
+                <input type="range" id="rng-forging" class="dither-range-input" min="0" max="80" value="0">
+              </div>
+
+              <div class="dither-bar-track">
+                <div class="dither-bar-fill" id="fill-days" style="width: 22%;"></div>
+                <div class="dither-bar-text">
+                  <span>Días Restantes: <strong id="lbl-days">20</strong></span>
+                  <span style="font-size: 0.72rem;">(+60 diarias)</span>
+                </div>
+                <input type="range" id="rng-days" class="dither-range-input" min="0" max="90" value="20">
+              </div>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="form-label">
-              <span>Pity Acumulado en Banner Promocional</span>
-              <strong id="in-pity-val" style="color: var(--wuwa-gold);">25</strong>
-            </div>
-            <input type="range" id="in-pity" min="0" max="80" style="width: 100%;">
-          </div>
+          <!-- Hidden numeric inputs to preserve JS compatibility -->
+          <input type="hidden" id="in-astrite" value="3200">
+          <input type="hidden" id="in-radiant" value="10">
+          <input type="hidden" id="in-forging" value="0">
+          <input type="hidden" id="in-days" value="20">
 
-          <div class="form-group">
-            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+          <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.25rem;">
+            <label class="dither-checkbox-label">
               <input type="checkbox" id="in-guaranteed">
-              <span>¿Tienes personaje garantizado? (Perdiste el último 50/50)</span>
+              <span>¿Tienes 100% garantizado? (Perdiste último 50/50)</span>
             </label>
-          </div>
-
-          <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem;">
-            <div class="card-title" style="font-size: 0.95rem;">📅 Proyección para el Próximo Banner</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.75rem;">
-              <div class="form-group">
-                <label class="form-label">Días restantes</label>
-                <input type="number" id="in-days" class="input" min="0" max="90">
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 0.5rem; justify-content: center; font-size: 0.85rem;">
-                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-                  <input type="checkbox" id="in-lunite" checked>
-                  <span>Pase Lunite (+90/día)</span>
-                </label>
-                <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
-                  <input type="checkbox" id="in-podcast">
-                  <span>Podcast Pionero (+5 tiradas)</span>
-                </label>
-              </div>
-            </div>
+            <label class="dither-checkbox-label">
+              <input type="checkbox" id="in-lunite" checked>
+              <span>Pase Lunite Activo (+90 Astrites diarios)</span>
+            </label>
+            <label class="dither-checkbox-label">
+              <input type="checkbox" id="in-podcast">
+              <span>Podcast Pionero Activo (+5 tiradas promocionales)</span>
+            </label>
           </div>
         </div>
 
@@ -165,41 +191,47 @@
         <div style="display: flex; flex-direction: column; gap: 1.25rem;">
           <div class="grid-3">
             <div class="metric-box">
-              <div class="metric-val" id="out-current-pulls">0</div>
+              <div class="metric-val" id="out-current-pulls">30</div>
               <div class="metric-label">Tiradas Actuales</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val" id="out-future-pulls" style="color: var(--wuwa-cyan);">0</div>
+              <div class="metric-val" id="out-future-pulls" style="color: var(--cyan-accent);">48</div>
               <div class="metric-label">Tiradas Estimadas</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val" id="out-guaranteed-needed" style="color: var(--wuwa-rose);">0</div>
+              <div class="metric-val" id="out-guaranteed-needed" style="color: var(--rose-accent);">135</div>
               <div class="metric-label">Para Garantizado</div>
             </div>
           </div>
 
           <div class="pity-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
-              <strong>Estado del Pity (Máx 80)</strong>
-              <span id="pity-status-text" style="color: var(--wuwa-cyan); font-family: var(--font-mono); font-size: 0.75rem;">-</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+              <strong style="color: #ffffff;">ESTADO DEL PITY // TELEMETRY</strong>
+              <span id="pity-status-text" style="color: var(--cyan-accent); font-family: var(--font-mono); font-size: 0.72rem;">25/80 • 50/50</span>
             </div>
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill" id="pity-bar-fill" style="width: 30%;"></div>
+            <div class="progress-bar-bg" style="height: 10px;">
+              <div class="progress-bar-fill" id="pity-bar-fill" style="width: 31%;"></div>
             </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-dim);">
-              <span>0 (Inicio)</span>
-              <span>65-70 (Soft Pity)</span>
-              <span>80 (Hard Pity)</span>
+            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted);">
+              <span>0 (INICIO)</span>
+              <span>65-70 (SOFT PITY)</span>
+              <span>80 (HARD PITY)</span>
             </div>
           </div>
 
-          <div class="card" style="background: rgba(0, 242, 254, 0.04); border-color: rgba(0, 242, 254, 0.25);">
-            <div class="card-title" style="color: var(--wuwa-gold); font-size: 0.95rem;">💡 Reglas de Oro del Gacha de WuWa</div>
-            <ul style="padding-left: 1.25rem; font-size: 0.825rem; color: var(--text-muted); line-height: 1.6; margin-top: 0.5rem;">
-              <li><strong>¡El banner de armas tiene 100% de garantía!</strong> No hay 50/50 en armas en Wuthering Waves (a diferencia de Genshin). Si tiras 80 veces, el arma promocional es 100% tuya.</li>
-              <li><strong>Soft Pity:</strong> A partir de la tirada 65, la probabilidad de sacar 5 estrellas aumenta de manera exponencial.</li>
-              <li><strong>Ahorro óptimo:</strong> Ten siempre 160 tiradas reservadas si quieres asegurarte un personaje nuevo desde cero perdiendo el 50/50.</li>
-            </ul>
+          <div class="card" style="margin-bottom: 0;">
+            <div class="dither-label">GACHA PROTOCOL // REGLAS KURO</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 0.5rem;">
+              • <strong>Banner de Armas:</strong> 100% garantizado al llegar a 80 tiradas (sin 50/50).<br>
+              • <strong>Soft Pity:</strong> A partir de tirada 65 la probabilidad de 5★ se dispara.<br>
+              • <strong>Asegurar Personaje:</strong> 160 tiradas garantizan cualquier 5★ desde cero.
+            </p>
+          </div>
+
+          <!-- Dither Lab Bottom Buttons: Save Image & Export SVG -->
+          <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+            <button class="btn-save" id="btn-save-planner">GUARDAR AHORROS Y CALCULAR</button>
+            <button class="btn-export" id="btn-reset-planner">REINICIAR VALORES POR DEFECTO</button>
           </div>
         </div>
       </div>
@@ -209,39 +241,40 @@
     <section class="tab-view" id="view-waveplate">
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">⚡ Contador de Waveplate en Vivo</div>
-          <div class="card-desc">El Waveplate se regenera a razón de 1 unidad cada 6 minutos (10 por hora, 24 horas de 0 a 240).</div>
+          <div class="dither-label">
+            <span>THRESHOLD // WAVEPLATE STAMINA</span>
+            <span style="color: var(--cyan-accent);">CAP: 240</span>
+          </div>
+          <div class="card-desc">Regeneración pasiva: 1 unidad cada 6 minutos (24 horas de 0 a 240).</div>
 
-          <div class="form-group">
-            <div class="form-label">
-              <span>Waveplate Actual en tu juego</span>
-              <span style="color: var(--wuwa-cyan);">Límite: 240</span>
+          <div class="dither-bar-track" style="height: 48px; margin-bottom: 1.25rem;">
+            <div class="dither-bar-fill" id="waveplate-slider-fill" style="width: 58%; background: var(--bg-bar-fill-cyan);"></div>
+            <div class="dither-bar-text" style="font-size: 1.05rem;">
+              <span>WAVEPLATE: <strong id="waveplate-display-text">140 / 240</strong></span>
+              <span id="waveplate-pct-tag" style="font-size: 0.75rem;">58%</span>
             </div>
-            <input type="number" id="in-waveplate" class="input" min="0" max="240" value="140" style="font-size: 1.25rem; font-weight: 700;">
+            <input type="range" id="in-waveplate" class="dither-range-input" min="0" max="240" value="140">
           </div>
 
-          <div class="progress-bar-bg" style="height: 14px;">
-            <div class="progress-bar-fill" id="waveplate-bar-fill" style="width: 58%;"></div>
-          </div>
-
-          <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem; flex-wrap: wrap;">
-            <button class="btn btn-secondary" id="btn-spend-40">-40 (Jefe de Mundo)</button>
-            <button class="btn btn-secondary" id="btn-spend-60">-60 (Tacet Field / Semanal)</button>
-            <button class="btn btn-primary" id="btn-refill-60">+60 (Solvente Cristalino)</button>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="dither-btn-mini" id="btn-spend-40">-40 (BOSS)</button>
+            <button class="dither-btn-mini" id="btn-spend-60">-60 (TACET FIELD)</button>
+            <button class="dither-btn-mini" id="btn-refill-60">+60 (SOLVENTE)</button>
+            <button class="dither-btn-mini" id="btn-fill-240">MAX 240</button>
           </div>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 1.25rem;">
           <div class="metric-box">
-            <div class="metric-val" id="waveplate-countdown">--</div>
+            <div class="metric-val" id="waveplate-countdown" style="color: var(--cyan-accent); font-size: 2.2rem;">--:--:--</div>
             <div class="metric-label">Tiempo para Recarga Completa</div>
           </div>
 
-          <div class="card">
-            <div class="card-title" style="font-size: 0.95rem;">⏰ Momento exacto de recarga</div>
-            <div id="waveplate-cap-time" style="font-size: 1.1rem; color: var(--wuwa-cyan); font-weight: 700; margin: 0.5rem 0;">Calculando...</div>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">
-              Consejo: Si no puedes jugar hoy, utiliza el sintetizador en Jinzhou para convertir 60 Waveplates en <strong>Placas de Cristal Ondulado</strong> y guardarlas para el fin de semana.
+          <div class="card" style="margin-bottom: 0;">
+            <div class="dither-label">STATUS // MOMENTO EXACTO DE CAP</div>
+            <div id="waveplate-cap-time" style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin: 0.5rem 0;">Calculando...</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+              Consejo: Si no puedes jugar hoy, utiliza el sintetizador en Jinzhou para convertir 60 Waveplates en <strong>Placas de Cristal Ondulado</strong> y guardarlas en tu inventario.
             </p>
           </div>
         </div>
@@ -297,6 +330,8 @@
           <ol id="redeem-guide-steps" style="padding-left: 1.25rem;"></ol>
         </div>
       </div>
+    </section>
+
     <!-- TAB 6: Servidores & Conexión de Cuenta -->
     <section class="tab-view" id="view-servers">
       <!-- 1. UID Inspector -->
