@@ -12,12 +12,29 @@
 <body>
 
   <div class="container">
+    <!-- Solaris Terminal HUD Status Line -->
+    <div class="terminal-hud-header">
+      <div>SOLARIS-3 // TERMINAL OS v2.0 • TACET FIELD FREQUENCY: SYNCHRONIZED</div>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span>AUDIO RESONANCE</span>
+        <div class="soundwave">
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+          <div class="soundwave-bar"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
       <div class="brand">
-        <img src="assets/icon.svg" alt="WuWa Companion Crest" class="brand-icon">
+        <img src="assets/icon.svg" alt="WuWa Companion Tacet Mark" class="brand-icon">
         <div>
-          <div class="brand-title">WuWa Companion</div>
+          <div class="brand-title">
+            WuWa Companion
+            <span class="brand-badge">TACET CORE</span>
+          </div>
           <div class="brand-subtitle">Asistente de Recursos, Tiradas y Guía de Solaris-3</div>
         </div>
       </div>
@@ -36,6 +53,38 @@
         </a>
       </div>
     </header>
+
+    <!-- Gacha Currencies Visual Strip -->
+    <div class="currencies-strip">
+      <div class="currency-card">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><polygon points="16,4 27,16 16,28 5,16" fill="#ffd159" fill-opacity="0.25" stroke="#ffd159" stroke-width="1.8"/><polygon points="16,8 23,16 16,24 9,16" fill="#ffd159" fill-opacity="0.8"/></svg>
+        <div class="currency-info">
+          <strong>Astrite (Astrita)</strong>
+          <small>Moneda principal (160 = 1 tirada)</small>
+        </div>
+      </div>
+      <div class="currency-card">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><circle cx="16" cy="16" r="12" fill="#ffd159" fill-opacity="0.2" stroke="#ffd159" stroke-width="2"/><circle cx="16" cy="16" r="7" fill="#ffd159" stroke="#ffffff" stroke-width="1.5"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="#ffd159" stroke-width="1.2" opacity="0.6"/></svg>
+        <div class="currency-info">
+          <strong>Marea Radiante</strong>
+          <small>Personaje promocional 5★</small>
+        </div>
+      </div>
+      <div class="currency-card">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><circle cx="16" cy="16" r="12" fill="#c084fc" fill-opacity="0.2" stroke="#c084fc" stroke-width="2"/><circle cx="16" cy="16" r="7" fill="#c084fc" stroke="#ffffff" stroke-width="1.5"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="#c084fc" stroke-width="1.2" opacity="0.6"/></svg>
+        <div class="currency-info">
+          <strong>Marea de Forja</strong>
+          <small>Arma promocional 5★ (100% garantizado)</small>
+        </div>
+      </div>
+      <div class="currency-card">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><circle cx="16" cy="16" r="12" fill="#38bdf8" fill-opacity="0.2" stroke="#38bdf8" stroke-width="2"/><circle cx="16" cy="16" r="7" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5"/><path d="M16 4 L16 28 M4 16 L28 16" stroke="#38bdf8" stroke-width="1.2" opacity="0.6"/></svg>
+        <div class="currency-info">
+          <strong>Marea Lustrosa</strong>
+          <small>Banners permanentes estándar</small>
+        </div>
+      </div>
+    </div>
 
     <!-- Navigation Tabs -->
     <nav class="tabs-nav" aria-label="Secciones del Asistente">

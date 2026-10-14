@@ -8,6 +8,7 @@ import { SONATA_SETS, COST_CONFIGS, DATA_BANK_TIPS } from './data/echoes.js';
 import { PROMO_CODES, REDEEM_GUIDE } from './data/codes.js';
 import { SERVERS, getServerTimes, getTowerResetCountdown, parseConveneUrl, POWERSHELL_CONVENE_SCRIPT } from './tools/server-sync.js';
 import { detectServerByUID, getPlayerProfile, getSol3Phase } from './tools/uid-lookup.js';
+import { SVG_ICONS } from './data/icons.js';
 
 // Global state with localStorage defaults
 const STATE = {
@@ -330,37 +331,56 @@ function renderSecrets() {
   `).join('');
 }
 
+function getElementIcon(elem) {
+  const el = (elem || '').toLowerCase();
+  if (el.includes('fusion') || el.includes('fuego')) return SVG_ICONS.fusion;
+  if (el.includes('aero') || el.includes('viento')) return SVG_ICONS.aero;
+  if (el.includes('spectro') || el.includes('luz')) return SVG_ICONS.spectro;
+  if (el.includes('glacio') || el.includes('hielo')) return SVG_ICONS.glacio;
+  if (el.includes('electro') || el.includes('rayo')) return SVG_ICONS.electro;
+  if (el.includes('havoc') || el.includes('caos')) return SVG_ICONS.havoc;
+  return SVG_ICONS.spectro;
+}
+
 function renderEchoes() {
   const sonataContainer = document.getElementById('sonata-list');
   const configsContainer = document.getElementById('configs-list');
   const bankContainer = document.getElementById('databank-list');
 
   sonataContainer.innerHTML = SONATA_SETS.map(s => `
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-top: 3px solid ${s.color}; border-radius: var(--radius-md); padding: 1rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-        <strong style="color: ${s.color}; font-size: 0.95rem;">${s.name}</strong>
-        <span class="badge" style="background: rgba(255,255,255,0.08);">${s.element}</span>
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-tech); border-top: 3px solid ${s.color}; border-radius: var(--radius-sm); padding: 1.15rem; transition: all 0.2s ease;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          ${getElementIcon(s.element)}
+          <strong style="color: ${s.color}; font-size: 0.95rem;">${s.name}</strong>
+        </div>
+        <span class="badge badge-gold" style="font-size: 0.65rem;">${s.element}</span>
       </div>
-      <div style="font-size: 0.8rem; margin-bottom: 0.35rem;"><strong>2 Piezas:</strong> <span style="color: var(--text-muted);">${s.twoPiece}</span></div>
-      <div style="font-size: 0.8rem; margin-bottom: 0.75rem;"><strong>5 Piezas:</strong> <span style="color: var(--text-muted);">${s.fivePiece}</span></div>
-      <div style="font-size: 0.75rem; color: var(--wuwa-cyan);">
-        <strong>Recomendado para:</strong> ${s.recommendedFor.join(', ')}
+      <div style="font-size: 0.8rem; margin-bottom: 0.4rem; line-height: 1.4;"><strong style="color: var(--gold-bright);">2 Piezas:</strong> <span style="color: var(--text-muted);">${s.twoPiece}</span></div>
+      <div style="font-size: 0.8rem; margin-bottom: 0.75rem; line-height: 1.4;"><strong style="color: var(--gold-bright);">5 Piezas:</strong> <span style="color: var(--text-muted);">${s.fivePiece}</span></div>
+      <div style="font-size: 0.75rem; color: var(--gold-primary); background: rgba(255, 209, 89, 0.05); padding: 0.4rem 0.6rem; border-radius: 2px;">
+        <strong>Resonadores recomendados:</strong> ${s.recommendedFor.join(', ')}
       </div>
     </div>
   `).join('');
 
   configsContainer.innerHTML = COST_CONFIGS.map(c => `
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.15rem; margin-bottom: 0.85rem;">
-      <h3 style="color: var(--wuwa-gold); font-size: 1rem; margin-bottom: 0.4rem;">${c.type}</h3>
-      <div style="font-size: 0.85rem; color: var(--wuwa-cyan); margin-bottom: 0.5rem; font-family: var(--font-mono);">${c.statPriority}</div>
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-tech); border-radius: var(--radius-sm); padding: 1.15rem; margin-bottom: 0.85rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+        <h3 style="color: var(--gold-bright); font-size: 1rem;">${c.type}</h3>
+        <div style="display: flex; gap: 3px;">
+          ${c.type.includes('4-3-3-1-1') ? `${SVG_ICONS.cost4}${SVG_ICONS.cost3}${SVG_ICONS.cost3}${SVG_ICONS.cost1}${SVG_ICONS.cost1}` : `${SVG_ICONS.cost4}${SVG_ICONS.cost4}${SVG_ICONS.cost1}${SVG_ICONS.cost1}`}
+        </div>
+      </div>
+      <div style="font-size: 0.85rem; color: var(--gold-primary); margin-bottom: 0.5rem; font-family: var(--font-mono);">${c.statPriority}</div>
       <div style="font-size: 0.8rem; color: var(--text-main); margin-bottom: 0.25rem;">✅ <strong>Ventaja:</strong> ${c.pros}</div>
       <div style="font-size: 0.8rem; color: var(--text-muted);">⚠️ <strong>Atención:</strong> ${c.cons}</div>
     </div>
   `).join('');
 
   bankContainer.innerHTML = DATA_BANK_TIPS.map(d => `
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 0.5rem;">
-      <strong style="color: var(--wuwa-cyan); font-size: 0.9rem;">${d.level} — ${d.feature}</strong>
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-tech); border-left: 3px solid var(--gold-primary); border-radius: var(--radius-sm); padding: 0.85rem 1rem; margin-bottom: 0.5rem;">
+      <strong style="color: var(--gold-bright); font-size: 0.9rem;">${d.level} — ${d.feature}</strong>
       <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">${d.advice}</p>
     </div>
   `).join('');
@@ -558,13 +578,16 @@ function initUidLookup() {
             <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.65rem;">🌟 Resonadores en Expositor Público</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
               ${profile.showcase.map(char => `
-                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-left: 3px solid ${char.color}; border-radius: var(--radius-md); padding: 0.85rem;">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <strong style="color: ${char.color}; font-size: 0.95rem;">${char.name}</strong>
-                    <span style="color: var(--wuwa-gold); font-size: 0.8rem;">★★★★★</span>
-                  </div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
-                    Elemento: ${char.element} • ${char.role}
+                <div style="background: var(--bg-card); border: 1px solid var(--border-tech); border-left: 3px solid ${char.color}; border-radius: var(--radius-sm); padding: 0.85rem; display: flex; align-items: center; gap: 0.75rem;">
+                  <div style="flex-shrink: 0;">${getElementIcon(char.element)}</div>
+                  <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <strong style="color: ${char.color}; font-size: 0.95rem;">${char.name}</strong>
+                      <span style="color: var(--gold-primary); font-size: 0.8rem; letter-spacing: 1px;">★★★★★</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;">
+                      ${char.element} • ${char.role}
+                    </div>
                   </div>
                 </div>
               `).join('')}
