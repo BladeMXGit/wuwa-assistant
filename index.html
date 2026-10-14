@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Wuthering Waves — Herramienta & Planificador</title>
   <meta name="description" content="Planificador de tiradas, calculadora de Pity y Astrites, seguimiento de Waveplate en tiempo real, guía de farmeo de Ecos y códigos promocionales para Wuthering Waves.">
-  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg?v=20261014-v5">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20261014-v5">
 </head>
 <body>
   <div class="container">
@@ -100,92 +103,98 @@
     <!-- TAB 1: Tiradas & Pity Planner -->
     <section class="tab-view active" id="view-planner">
       <div class="grid-2">
-        <!-- Form Inputs (Dither Lab Style Controls) -->
+        <!-- Form Inputs: Modern Kuro Tech Style (Zero scanlines, Zero dither bars) -->
         <div class="card">
-          <div class="dither-label">ALGORITHM // BANNER TARGET</div>
-          <select id="sel-banner-type" class="dither-select">
-            <option value="featured-char">Banner Promocional de Personaje 5★ (Soft Pity: 65 / Hard: 80)</option>
-            <option value="featured-weapon">Banner Promocional de Arma 5★ (100% Garantizado / Hard: 80)</option>
-            <option value="standard-char">Banner Estándar Permanente (Marea Lustrosa)</option>
-          </select>
+          <div class="card-title" style="margin-bottom: 1.25rem;">🎯 Configuración del Banner y Pity</div>
 
-          <!-- Pity Brutalist Slider (like THRESHOLD 0.50) -->
-          <div style="margin-top: 1.25rem;">
-            <div class="dither-label">
-              <span>THRESHOLD // PITY ACUMULADO</span>
-              <span id="in-pity-val" style="color: var(--gold-primary);">25</span>
-            </div>
-            <div class="dither-bar-track">
-              <div class="dither-bar-fill" id="pity-slider-fill" style="width: 31%;"></div>
-              <div class="dither-bar-text">
-                <span>PITY: <strong id="lbl-pity-display">25 / 80</strong></span>
-                <span id="pity-tier-tag" style="font-size: 0.72rem;">TIER INICIAL</span>
+          <div class="form-group">
+            <label class="form-label">Banner Objetivo</label>
+            <select id="sel-banner-type" class="tech-select">
+              <option value="featured-char">Banner Promocional de Personaje 5★ (Soft Pity: 65 / Hard: 80)</option>
+              <option value="featured-weapon">Banner Promocional de Arma 5★ (100% Garantizado / Hard: 80)</option>
+              <option value="standard-char">Banner Estándar Permanente (Marea Lustrosa)</option>
+            </select>
+          </div>
+
+          <!-- Pity Range Slider: Sleek Gold Bar with Crisp White Outline -->
+          <div class="form-group" style="margin-top: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <label class="form-label" style="margin: 0;">Pity Acumulado</label>
+              <div style="font-family: var(--font-mono); font-weight: 700;">
+                <span id="in-pity-val" style="color: var(--gold-primary); font-size: 1.15rem;">25</span>
+                <span style="color: var(--text-muted); font-size: 0.85rem;"> / 80</span>
+                <span id="pity-tier-tag" class="pity-tier-badge">INICIAL</span>
               </div>
-              <input type="range" id="in-pity" class="dither-range-input" min="0" max="80" value="25">
+            </div>
+            <input type="range" id="in-pity" class="gold-range-slider" min="0" max="80" value="25">
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: 0.4rem; font-family: var(--font-mono);">
+              <span>0 (Reset)</span>
+              <span style="color: var(--gold-primary);">65 (Soft Pity)</span>
+              <span>80 (Hard Pity)</span>
             </div>
           </div>
 
-          <!-- Stacked Sliders (like Contrast, Midtones, Highlights, Scale) -->
+          <!-- Direct Numeric Resource Inputs (2x2 Clean Grid) -->
           <div style="margin-top: 1.25rem;">
-            <div class="dither-label">PARAMETERS // RECURSOS Y TIEMPO</div>
-            <div class="dither-stacked-bars">
-              <div class="dither-bar-track">
-                <div class="dither-bar-fill" id="fill-astrite" style="width: 25%;"></div>
-                <div class="dither-bar-text">
-                  <span>Astrite: <strong id="lbl-astrite">3200</strong></span>
-                  <span style="font-size: 0.72rem;">(160 = 1 Pull)</span>
-                </div>
-                <input type="range" id="rng-astrite" class="dither-range-input" min="0" max="25000" step="160" value="3200">
+            <div class="form-label" style="margin-bottom: 0.75rem;">💰 Tus Recursos y Tiempo Restante</div>
+            <div class="grid-2" style="gap: 0.85rem;">
+              <div class="resource-field">
+                <label class="resource-field-label" for="in-astrite">
+                  <span>Astrites Disponibles</span>
+                  <span id="lbl-astrite" class="resource-tag">20 pulls</span>
+                </label>
+                <input type="number" id="in-astrite" class="tech-number-input" min="0" step="160" value="3200">
               </div>
 
-              <div class="dither-bar-track">
-                <div class="dither-bar-fill" id="fill-radiant" style="width: 12%;"></div>
-                <div class="dither-bar-text">
-                  <span>Mareas Radiantes: <strong id="lbl-radiant">10</strong></span>
-                  <span style="font-size: 0.72rem;">(Personaje)</span>
-                </div>
-                <input type="range" id="rng-radiant" class="dither-range-input" min="0" max="80" value="10">
+              <div class="resource-field">
+                <label class="resource-field-label" for="in-radiant">
+                  <span>Mareas Radiantes</span>
+                  <span class="resource-tag">Personaje</span>
+                </label>
+                <input type="number" id="in-radiant" class="tech-number-input" min="0" max="999" value="10">
               </div>
 
-              <div class="dither-bar-track">
-                <div class="dither-bar-fill" id="fill-forging" style="width: 0%;"></div>
-                <div class="dither-bar-text">
-                  <span>Mareas de Forja: <strong id="lbl-forging">0</strong></span>
-                  <span style="font-size: 0.72rem;">(Arma)</span>
-                </div>
-                <input type="range" id="rng-forging" class="dither-range-input" min="0" max="80" value="0">
+              <div class="resource-field">
+                <label class="resource-field-label" for="in-forging">
+                  <span>Mareas de Forja</span>
+                  <span class="resource-tag">Arma</span>
+                </label>
+                <input type="number" id="in-forging" class="tech-number-input" min="0" max="999" value="0">
               </div>
 
-              <div class="dither-bar-track">
-                <div class="dither-bar-fill" id="fill-days" style="width: 22%;"></div>
-                <div class="dither-bar-text">
-                  <span>Días Restantes: <strong id="lbl-days">20</strong></span>
-                  <span style="font-size: 0.72rem;">(+60 diarias)</span>
-                </div>
-                <input type="range" id="rng-days" class="dither-range-input" min="0" max="90" value="20">
+              <div class="resource-field">
+                <label class="resource-field-label" for="in-days">
+                  <span>Días Restantes</span>
+                  <span class="resource-tag">+60 diarias</span>
+                </label>
+                <input type="number" id="in-days" class="tech-number-input" min="0" max="90" value="20">
               </div>
             </div>
           </div>
 
-          <!-- Hidden numeric inputs to preserve JS compatibility -->
-          <input type="hidden" id="in-astrite" value="3200">
-          <input type="hidden" id="in-radiant" value="10">
-          <input type="hidden" id="in-forging" value="0">
-          <input type="hidden" id="in-days" value="20">
-
-          <div style="display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1.25rem;">
-            <label class="dither-checkbox-label">
+          <!-- Checkboxes in High-Tech Kuro Style -->
+          <div class="tech-checkboxes" style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <label class="tech-checkbox-label">
               <input type="checkbox" id="in-guaranteed">
+              <span class="tech-checkbox-box"></span>
               <span>¿Tienes 100% garantizado? (Perdiste último 50/50)</span>
             </label>
-            <label class="dither-checkbox-label">
+            <label class="tech-checkbox-label">
               <input type="checkbox" id="in-lunite" checked>
+              <span class="tech-checkbox-box"></span>
               <span>Pase Lunite Activo (+90 Astrites diarios)</span>
             </label>
-            <label class="dither-checkbox-label">
+            <label class="tech-checkbox-label">
               <input type="checkbox" id="in-podcast">
+              <span class="tech-checkbox-box"></span>
               <span>Podcast Pionero Activo (+5 tiradas promocionales)</span>
             </label>
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+            <button class="btn btn-primary" id="btn-save-planner">💾 Guardar Configuración</button>
+            <button class="btn btn-secondary" id="btn-reset-planner">🔄 Restablecer</button>
           </div>
         </div>
 
@@ -229,12 +238,6 @@
               • <strong>Asegurar Personaje:</strong> 160 tiradas garantizan cualquier 5★ desde cero.
             </p>
           </div>
-
-          <!-- Bottom Action Buttons: Pure Gold & White Border -->
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-            <button class="btn-save" id="btn-save-planner">GUARDAR AHORROS Y CALCULAR</button>
-            <button class="btn-export" id="btn-reset-planner">REINICIAR VALORES POR DEFECTO</button>
-          </div>
         </div>
       </div>
     </section>
@@ -243,26 +246,28 @@
     <section class="tab-view" id="view-waveplate">
       <div class="grid-2">
         <div class="card">
-          <div class="dither-label">
-            <span>THRESHOLD // WAVEPLATE STAMINA</span>
-            <span style="color: var(--gold-primary);">CAP: 240</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div class="card-title" style="margin: 0;">⚡ Seguimiento de Waveplate</div>
+            <span style="color: var(--gold-primary); font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem;">CAP: 240</span>
           </div>
           <div class="card-desc">Regeneración pasiva: 1 unidad cada 6 minutos (24 horas de 0 a 240).</div>
 
-          <div class="dither-bar-track" style="height: 48px; margin-bottom: 1.25rem;">
-            <div class="dither-bar-fill" id="waveplate-slider-fill" style="width: 58%; background: var(--gold-primary);"></div>
-            <div class="dither-bar-text" style="font-size: 1.05rem;">
-              <span>WAVEPLATE: <strong id="waveplate-display-text">140 / 240</strong></span>
-              <span id="waveplate-pct-tag" style="font-size: 0.75rem;">58%</span>
+          <div style="margin: 1.25rem 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span class="form-label" style="margin: 0;">Nivel Actual</span>
+              <div style="font-family: var(--font-mono); font-weight: 700;">
+                <span id="waveplate-display-text" style="color: var(--gold-primary); font-size: 1.15rem;">140 / 240</span>
+                <span id="waveplate-pct-tag" class="pity-tier-badge">58%</span>
+              </div>
             </div>
-            <input type="range" id="in-waveplate" class="dither-range-input" min="0" max="240" value="140">
+            <input type="range" id="in-waveplate" class="gold-range-slider" min="0" max="240" value="140">
           </div>
 
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button class="dither-btn-mini" id="btn-spend-40">-40 (BOSS)</button>
-            <button class="dither-btn-mini" id="btn-spend-60">-60 (TACET FIELD)</button>
-            <button class="dither-btn-mini" id="btn-refill-60">+60 (SOLVENTE)</button>
-            <button class="dither-btn-mini" id="btn-fill-240">MAX 240</button>
+            <button class="btn btn-secondary btn-sm" id="btn-spend-40">-40 (Jefe)</button>
+            <button class="btn btn-secondary btn-sm" id="btn-spend-60">-60 (Campo Tacet)</button>
+            <button class="btn btn-secondary btn-sm" id="btn-refill-60">+60 (Solvente)</button>
+            <button class="btn btn-primary btn-sm" id="btn-fill-240">Llenar 240</button>
           </div>
         </div>
 
@@ -273,8 +278,8 @@
           </div>
 
           <div class="card" style="margin-bottom: 0;">
-            <div class="dither-label">STATUS // MOMENTO EXACTO DE CAP</div>
-            <div id="waveplate-cap-time" style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin: 0.5rem 0;">Calculando...</div>
+            <div class="card-title" style="font-size: 0.95rem; margin-bottom: 0.5rem;">⏰ Momento Exacto de Cap (240)</div>
+            <div id="waveplate-cap-time" style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin: 0.5rem 0; font-family: var(--font-mono);">Calculando...</div>
             <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
               Consejo: Si no puedes jugar hoy, utiliza el sintetizador en Jinzhou para convertir 60 Waveplates en <strong>Placas de Cristal Ondulado</strong> y guardarlas en tu inventario.
             </p>
@@ -421,7 +426,7 @@
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
 
-  <!-- Application Controller -->
-  <script type="module" src="js/app.js"></script>
+  <!-- Application Controller with cache-busting -->
+  <script type="module" src="js/app.js?v=20261014-v5"></script>
 </body>
 </html>

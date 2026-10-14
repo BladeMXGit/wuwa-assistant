@@ -447,90 +447,24 @@ body {
 }
 
 /* ==========================================================================
-   Clean Sliders & Form Controls (Black, Gold & White)
+/* ==========================================================================
+   Clean Kuro Tech Form Controls (Black, Gold & White — Zero Scanlines)
    ========================================================================== */
 
-.dither-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--text-pure);
-  text-transform: uppercase;
-  margin-bottom: 0.45rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Forcefully eliminate any scanline overlay across all viewports */
+.crt-overlay, .scanlines, [class*="crt"], [class*="scanline"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
-/* Clean Bar Slider Track */
-.dither-bar-track {
-  position: relative;
-  height: 42px;
-  background: var(--bg-track);
-  border: 1px solid var(--border-white-subtle);
-  overflow: hidden;
-  user-select: none;
-  transition: border-color 0.15s ease;
-}
-
-.dither-bar-track:hover {
-  border-color: var(--border-white-solid);
-}
-
-.dither-bar-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: var(--gold-primary);
-  pointer-events: none;
-  transition: width 0.05s ease;
-}
-
-.dither-bar-text {
-  position: absolute;
-  top: 0;
-  left: 14px;
-  right: 14px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--text-dark);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 700;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Transparent Range Input on top */
-.dither-range-input {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Modern Kuro Tech Select */
+.tech-select, .dither-select {
   width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: ew-resize;
-  z-index: 3;
-  margin: 0;
-}
-
-/* Stacked Sliders */
-.dither-stacked-bars {
-  display: flex;
-  flex-direction: column;
-}
-
-.dither-stacked-bars .dither-bar-track {
-  margin-top: -1px;
-}
-
-/* Dropdown Select */
-.dither-select {
-  width: 100%;
-  background: var(--bg-input);
+  background: var(--bg-page);
   border: 1px solid var(--border-white-subtle);
   color: var(--text-pure);
   font-family: var(--font-mono);
@@ -543,16 +477,171 @@ body {
   background-position: right 1rem center;
   cursor: pointer;
   outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tech-select:focus, .tech-select:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 8px rgba(255, 209, 89, 0.25);
+}
+
+.tech-select option {
+  background: #101115;
+  color: var(--text-pure);
+}
+
+/* Modern Gold Range Slider */
+.gold-range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #191a22;
+  border: 1px solid var(--border-white-subtle);
+  outline: none;
+  cursor: pointer;
+  margin: 0.65rem 0 0.35rem 0;
   transition: border-color 0.15s ease;
 }
 
-.dither-select:focus, .dither-select:hover {
+.gold-range-slider:hover, .gold-range-slider:focus {
+  border-color: var(--gold-primary);
+}
+
+.gold-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--gold-primary);
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 209, 89, 0.5);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.gold-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 14px rgba(255, 209, 89, 0.7);
+}
+
+.gold-range-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--gold-primary);
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 209, 89, 0.5);
+}
+
+.pity-tier-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  background: rgba(255, 209, 89, 0.15);
+  border: 1px solid var(--gold-primary);
+  padding: 0.15rem 0.45rem;
+  margin-left: 0.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Resource Field Card */
+.resource-field {
+  background: var(--bg-page);
+  border: 1px solid var(--border-white-subtle);
+  padding: 0.75rem 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: border-color 0.15s ease;
+}
+
+.resource-field:focus-within, .resource-field:hover {
   border-color: var(--border-white-solid);
 }
 
-.dither-select option {
-  background: var(--bg-card);
+.resource-field-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
   color: var(--text-pure);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.resource-tag {
+  font-size: 0.68rem;
+  color: var(--gold-primary);
+  font-family: var(--font-mono);
+}
+
+.tech-number-input {
+  width: 100%;
+  background: #14151b;
+  border: 1px solid var(--border-white-subtle);
+  color: var(--gold-primary);
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0.45rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tech-number-input:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 8px rgba(255, 209, 89, 0.3);
+}
+
+/* Custom Checkboxes */
+.tech-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tech-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.825rem;
+  color: var(--text-pure);
+  user-select: none;
+}
+
+.tech-checkbox-label input {
+  display: none;
+}
+
+.tech-checkbox-box {
+  width: 18px;
+  height: 18px;
+  background: var(--bg-page);
+  border: 1px solid var(--border-white-solid);
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.tech-checkbox-label input:checked + .tech-checkbox-box {
+  background: var(--gold-primary);
+  border-color: var(--gold-primary);
+}
+
+.tech-checkbox-label input:checked + .tech-checkbox-box::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #08080a;
+  font-weight: 900;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
 }
 
 /* Standard Inputs */

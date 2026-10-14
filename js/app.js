@@ -10,6 +10,16 @@ import { SERVERS, getServerTimes, getTowerResetCountdown, parseConveneUrl, POWER
 import { detectServerByUID, getPlayerProfile, getSol3Phase } from './tools/uid-lookup.js';
 import { SVG_ICONS } from './data/icons.js';
 
+// Guarantee immediate purge of any legacy scanlines or CRT overlay from cached DOM
+function purgeScanlines() {
+  document.querySelectorAll('.crt-overlay, .scanlines, [class*="crt"], [class*="scanline"]').forEach(el => el.remove());
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', purgeScanlines);
+} else {
+  purgeScanlines();
+}
+
 // Global state with localStorage defaults
 const STATE = {
   astrite: Number(localStorage.getItem('wuwa_astrite')) || 3200,
@@ -228,36 +238,24 @@ function initPullsPlanner() {
     localStorage.setItem('wuwa_podcast', STATE.hasPodcast);
   }
 
-  // Event Listeners for Range Sliders
-  rngAstrite?.addEventListener('input', () => {
-    STATE.astrite = parseInt(rngAstrite.value, 10) || 0;
-    if (inAstrite) inAstrite.value = STATE.astrite;
-    if (lblAstrite) lblAstrite.textContent = STATE.astrite.toLocaleString();
-    if (fillAstrite) fillAstrite.style.width = `${Math.min(100, (STATE.astrite / 25000) * 100)}%`;
+  // Event Listeners for Direct Numeric Inputs
+  inAstrite?.addEventListener('input', () => {
+    STATE.astrite = Math.max(0, parseInt(inAstrite.value, 10) || 0);
     calculate();
   });
 
-  rngRadiant?.addEventListener('input', () => {
-    STATE.radiantTides = parseInt(rngRadiant.value, 10) || 0;
-    if (inRadiant) inRadiant.value = STATE.radiantTides;
-    if (lblRadiant) lblRadiant.textContent = STATE.radiantTides;
-    if (fillRadiant) fillRadiant.style.width = `${Math.min(100, (STATE.radiantTides / 80) * 100)}%`;
+  inRadiant?.addEventListener('input', () => {
+    STATE.radiantTides = Math.max(0, parseInt(inRadiant.value, 10) || 0);
     calculate();
   });
 
-  rngForging?.addEventListener('input', () => {
-    STATE.forgingTides = parseInt(rngForging.value, 10) || 0;
-    if (inForging) inForging.value = STATE.forgingTides;
-    if (lblForging) lblForging.textContent = STATE.forgingTides;
-    if (fillForging) fillForging.style.width = `${Math.min(100, (STATE.forgingTides / 80) * 100)}%`;
+  inForging?.addEventListener('input', () => {
+    STATE.forgingTides = Math.max(0, parseInt(inForging.value, 10) || 0);
     calculate();
   });
 
-  rngDays?.addEventListener('input', () => {
-    STATE.daysRemaining = parseInt(rngDays.value, 10) || 0;
-    if (inDays) inDays.value = STATE.daysRemaining;
-    if (lblDays) lblDays.textContent = STATE.daysRemaining;
-    if (fillDays) fillDays.style.width = `${Math.min(100, (STATE.daysRemaining / 90) * 100)}%`;
+  inDays?.addEventListener('input', () => {
+    STATE.daysRemaining = Math.max(0, parseInt(inDays.value, 10) || 0);
     calculate();
   });
 
