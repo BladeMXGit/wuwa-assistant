@@ -9,6 +9,7 @@ import { PROMO_CODES, REDEEM_GUIDE } from './data/codes.js';
 import { SERVERS, getServerTimes, getTowerResetCountdown, parseConveneUrl, POWERSHELL_CONVENE_SCRIPT } from './tools/server-sync.js';
 import { detectServerByUID, getPlayerProfile, getSol3Phase } from './tools/uid-lookup.js';
 import { SVG_ICONS } from './data/icons.js';
+import { audioController } from './tools/audio-player.js';
 
 // Guarantee immediate purge of any legacy scanlines or CRT overlay from cached DOM
 function purgeScanlines() {
@@ -495,25 +496,168 @@ function renderEchoes() {
   `).join('');
 }
 
+// Expose copyCode globally for inline onclick handlers
+window.copyCode = function(code) {
+  if (!navigator.clipboard) {
+    const el = document.createElement('textarea');
+    el.value = code;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    showToast(`¡Código ${code} copiado al portapapeles!`);
+    return;
+  }
+  navigator.clipboard.writeText(code).then(() => {
+    showToast(`¡Código ${code} copiado al portapapeles!`);
+  }).catch(() => {
+    showToast(`Código ${code} copiado.`);
+  });
+};
+
 function renderCodes() {
-  const codesContainer = document.getElementById('codes-list');
+  const activeContainer = document.getElementById('active-codes-list');
+  const expiredContainer = document.getElementById('expired-codes-list');
+  const legacyContainer = document.getElementById('codes-list');
   const guideContainer = document.getElementById('redeem-guide-steps');
+  const searchInput = document.getElementById('in-search-codes');
+  const filterButtons = document.querySelectorAll('.code-filter-btn');
+  const countAll = document.getElementById('count-all');
+  const countActive = document.getElementById('count-active');
+  const countExpired = document.getElementById('count-expired');
+  const colActive = document.getElementById('col-active-codes');
+  const colExpired = document.getElementById('col-expired-codes');
 
-  codesContainer.innerHTML = PROMO_CODES.map(c => `
-    <div class="code-card">
-      <div>
-        <div class="code-badge">${c.code}</div>
-        <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">${c.rewards}</div>
-      </div>
-      <button class="btn btn-primary" onclick="copyCode('${c.code}')">Copiar Código</button>
-    </div>
-  `).join('');
+  let currentFilter = 'all'; // 'all' | 'active' | 'expired'
+  let searchQuery = '';
 
-  guideContainer.innerHTML = REDEEM_GUIDE.inGameSteps.map((step, idx) => `
-    <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
-      <strong style="color: var(--gold-primary);">${idx + 1}.</strong> ${step}
-    </li>
-  `).join('');
+  const activeCodes = PROMO_CODES.filter(c => c.status === 'active');
+  const expiredCodes = PROMO_CODES.filter(c => c.status === 'expired');
+
+  if (countAll) countAll.textContent = PROMO_CODES.length;
+  if (countActive) countActive.textContent = activeCodes.length;
+  if (countExpired) countExpired.textContent = expiredCodes.length;
+
+  function updateDisplay() {
+    const q = searchQuery.toLowerCase().trim();
+
+    const filteredActive = activeCodes.filter(c => 
+      !q || c.code.toLowerCase().includes(q) || c.rewards.toLowerCase().includes(q) || (c.date && c.date.toLowerCase().includes(q))
+    );
+
+    const filteredExpired = expiredCodes.filter(c => 
+      !q || c.code.toLowerCase().includes(q) || c.rewards.toLowerCase().includes(q) || (c.date && c.date.toLowerCase().includes(q))
+    );
+
+    // Filter column visibility
+    if (colActive) {
+      colActive.style.display = (currentFilter === 'all' || currentFilter === 'active') ? 'block' : 'none';
+    }
+    if (colExpired) {
+      colExpired.style.display = (currentFilter === 'all' || currentFilter === 'expired') ? 'block' : 'none';
+    }
+
+    // Render active codes
+    if (activeContainer) {
+      if (filteredActive.length === 0) {
+        activeContainer.innerHTML = `
+          <div style="background: var(--bg-page); border: 1px dashed var(--border-white-subtle); padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+            No se encontraron códigos activos que coincidan con la búsqueda.
+          </div>
+        `;
+      } else {
+        activeContainer.innerHTML = filteredActive.map(c => `
+          <div class="code-card">
+            <div style="flex: 1;">
+              <div class="code-card-header">
+                <div class="code-badge">${c.code}</div>
+                <span class="code-status-pill active">${c.badge || 'ACTIVO'}</span>
+              </div>
+              <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                ${c.rewards}
+              </div>
+              <div class="code-meta-date">${c.date}</div>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="copyCode('${c.code}')" style="white-space: nowrap; flex-shrink: 0;">
+              📋 Copiar
+            </button>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Render expired codes
+    if (expiredContainer) {
+      if (filteredExpired.length === 0) {
+        expiredContainer.innerHTML = `
+          <div style="background: var(--bg-page); border: 1px dashed var(--border-white-subtle); padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.85rem;">
+            No se encontraron códigos desactivados que coincidan con la búsqueda.
+          </div>
+        `;
+      } else {
+        expiredContainer.innerHTML = filteredExpired.map(c => `
+          <div class="code-card expired">
+            <div style="flex: 1;">
+              <div class="code-card-header">
+                <div class="code-badge expired-badge">${c.code}</div>
+                <span class="code-status-pill expired">${c.badge || 'EXPIRADO'}</span>
+              </div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">
+                ${c.rewards}
+              </div>
+              <div class="code-meta-date">Terminado: ${c.date}</div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="copyCode('${c.code}')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;" title="Copiar código histórico">
+              📋 Copiar
+            </button>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Legacy fallback container support
+    if (legacyContainer && !activeContainer) {
+      legacyContainer.innerHTML = PROMO_CODES.map(c => `
+        <div class="code-card ${c.status === 'expired' ? 'expired' : ''}">
+          <div>
+            <div class="code-badge ${c.status === 'expired' ? 'expired-badge' : ''}">${c.code}</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">${c.rewards}</div>
+          </div>
+          <button class="btn btn-primary" onclick="copyCode('${c.code}')">Copiar Código</button>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Bind search input
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      updateDisplay();
+    });
+  }
+
+  // Bind filter buttons
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-filter') || 'all';
+      updateDisplay();
+    });
+  });
+
+  // Render guide steps
+  if (guideContainer && REDEEM_GUIDE?.inGameSteps) {
+    guideContainer.innerHTML = REDEEM_GUIDE.inGameSteps.map((step, idx) => `
+      <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+        <strong style="color: var(--gold-primary);">${idx + 1}.</strong> ${step}
+      </li>
+    `).join('');
+  }
+
+  // Initial draw
+  updateDisplay();
 }
 
 /* ==========================================================================
@@ -758,4 +902,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSecrets();
   renderEchoes();
   renderCodes();
+  audioController.init();
 });

@@ -1028,3 +1028,207 @@ body {
   gap: 0.75rem;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.9);
 }
+
+/* ==========================================================================
+   BGM Audio Player Bar & Equalizer (Dual-Mode: Synth + OST)
+   ========================================================================== */
+
+.bgm-player-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-page);
+  border: 1px solid var(--border-white-solid);
+  padding: 0.2rem 0.55rem;
+}
+
+.dither-btn-mini.playing {
+  background: var(--gold-primary);
+  color: #08080a;
+  border-color: var(--gold-primary);
+  font-weight: 800;
+}
+
+.bgm-meta-box {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.4rem;
+  border-left: 1px solid var(--border-white-subtle);
+  border-right: 1px solid var(--border-white-subtle);
+}
+
+.bgm-equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  width: 14px;
+}
+
+.bgm-equalizer-bar {
+  width: 2px;
+  height: 3px;
+  background: var(--gold-primary);
+  border-radius: 1px;
+  transition: height 0.15s ease;
+}
+
+.bgm-equalizer-bar.animating:nth-child(1) {
+  animation: eqBounce 0.8s ease-in-out infinite alternate;
+}
+.bgm-equalizer-bar.animating:nth-child(2) {
+  animation: eqBounce 1.1s ease-in-out 0.2s infinite alternate;
+}
+.bgm-equalizer-bar.animating:nth-child(3) {
+  animation: eqBounce 0.7s ease-in-out 0.4s infinite alternate;
+}
+.bgm-equalizer-bar.animating:nth-child(4) {
+  animation: eqBounce 0.9s ease-in-out 0.1s infinite alternate;
+}
+
+@keyframes eqBounce {
+  0% { height: 2px; }
+  50% { height: 13px; }
+  100% { height: 4px; }
+}
+
+.bgm-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--gold-primary);
+  font-weight: 700;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.03em;
+}
+
+.bgm-mode-btn {
+  font-size: 0.68rem;
+  padding: 0.2rem 0.45rem;
+}
+
+.bgm-vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.bgm-vol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px;
+  height: 3px;
+  background: var(--border-white-subtle);
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.bgm-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  cursor: pointer;
+}
+
+.bgm-vol-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  border: none;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Promo Code History & Card Styles
+   ========================================================================== */
+
+.code-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-white-subtle);
+  border-left: 3px solid var(--gold-primary);
+  padding: 0.95rem 1.15rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.15s ease;
+}
+
+.code-card:hover {
+  border-color: var(--border-white-solid);
+  border-left-color: var(--gold-primary);
+}
+
+.code-card.expired {
+  opacity: 0.65;
+  filter: grayscale(0.3);
+  border-left: 3px solid #666666;
+  background: rgba(18, 18, 22, 0.6);
+}
+
+.code-card.expired:hover {
+  opacity: 0.95;
+  filter: grayscale(0);
+  border-color: var(--border-white-solid);
+  border-left-color: #888888;
+}
+
+.code-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.code-badge.expired-badge {
+  text-decoration: line-through;
+  color: #888888;
+  border-color: #444444;
+  background: #111114;
+}
+
+.code-status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.code-status-pill.active {
+  background: rgba(255, 209, 89, 0.12);
+  color: var(--gold-primary);
+  border: 1px solid var(--gold-primary);
+}
+
+.code-status-pill.expired {
+  background: rgba(255, 255, 255, 0.05);
+  color: #888888;
+  border: 1px solid #444444;
+}
+
+.code-meta-date {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-top: 0.25rem;
+}
+
+.code-filter-btn.active {
+  background: var(--gold-primary) !important;
+  color: #08080a !important;
+  border-color: var(--gold-primary) !important;
+  font-weight: 800 !important;
+}
+

@@ -34,6 +34,29 @@
         </div>
 
         <div class="header-controls">
+          <!-- BGM Ambient & OST Player Controller -->
+          <div class="bgm-player-bar">
+            <button class="dither-btn-mini" id="btn-bgm-play" title="Reproducir música de fondo de Wuthering Waves">
+              <span>▶</span> <span>MÚSICA OST</span>
+            </button>
+            <div class="bgm-meta-box">
+              <div class="bgm-equalizer">
+                <span class="bgm-equalizer-bar"></span>
+                <span class="bgm-equalizer-bar"></span>
+                <span class="bgm-equalizer-bar"></span>
+                <span class="bgm-equalizer-bar"></span>
+              </div>
+              <span id="bgm-track-title" class="bgm-title">Resonancia Acústica</span>
+            </div>
+            <button class="dither-btn-mini bgm-mode-btn" id="btn-bgm-mode" title="Cambiar entre sintetizador ambiental y OST oficial">
+              MODO: AMBIENTE
+            </button>
+            <div class="bgm-vol-wrap" title="Volumen de música">
+              <span style="font-size: 0.75rem;">🔈</span>
+              <input type="range" id="bgm-volume-slider" min="0" max="1" step="0.05" value="0.45" class="bgm-vol-slider">
+            </div>
+          </div>
+
           <button class="dither-btn-mini" id="btn-quick-status" title="Acceso directo a Waveplate">
             <span class="soundwave">
               <span class="soundwave-bar"></span>
@@ -46,10 +69,6 @@
           <a href="https://github.com/BladeMXGit/wuwa-assistant" target="_blank" rel="noopener noreferrer" class="dither-btn-mini">
             GITHUB // REPO ↗
           </a>
-          <div class="telemetry-badge">
-            <span class="telemetry-dot"></span>
-            <span>SOLARIS-3 // SYNCHRONIZED</span>
-          </div>
         </div>
       </div>
     </header>
@@ -322,19 +341,52 @@
       </div>
     </section>
 
-    <!-- TAB 5: Códigos Promocionales -->
+    <!-- TAB 5: Códigos Promocionales & Historial -->
     <section class="tab-view" id="view-codes">
-      <div class="grid-2">
-        <div>
-          <div class="card-title" style="margin-bottom: 1rem;">🎁 Códigos de Canje Activos</div>
-          <div id="codes-list"></div>
-        </div>
-        <div class="card">
-          <div class="card-title">📖 ¿Cómo canjear códigos en Wuthering Waves?</div>
-          <div style="font-size: 0.85rem; color: var(--wuwa-gold); font-weight: 600; margin-bottom: 0.75rem;">
-            Requisito: Nivel de Unión 2
+      <!-- Search & Filter Panel -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div class="card-title" style="margin: 0;">🎁 Códigos de Canje & Historial de Wuthering Waves</div>
+            <div class="card-desc" style="margin-top: 0.25rem;">Consulta los códigos que funcionan actualmente y el registro histórico de códigos desactivados/expirados.</div>
           </div>
-          <ol id="redeem-guide-steps" style="padding-left: 1.25rem;"></ol>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="codes-filter-group">
+            <button class="dither-btn-mini code-filter-btn active" data-filter="all">TODOS (<span id="count-all">0</span>)</button>
+            <button class="dither-btn-mini code-filter-btn" data-filter="active" style="border-color: var(--gold-primary); color: var(--gold-primary);">🟢 ACTIVOS (<span id="count-active">0</span>)</button>
+            <button class="dither-btn-mini code-filter-btn" data-filter="expired">🔴 DESACTIVADOS (<span id="count-expired">0</span>)</button>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <input type="text" id="in-search-codes" class="input" placeholder="🔍 Buscar código o recompensa (ej: Astrites, Shell Credits, Shorekeeper, v1.3)...">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Códigos Activos (Funcionando Ahora) -->
+        <div id="col-active-codes">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
+            <div class="card-title" style="margin: 0; color: var(--gold-primary);">🟢 Códigos Activos (Funcionando Ahora)</div>
+            <span class="badge badge-gold" id="badge-active-sum">+410 Astrites</span>
+          </div>
+          <div id="active-codes-list"></div>
+        </div>
+
+        <!-- Historial de Códigos Desactivados & Guía -->
+        <div id="col-expired-codes">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
+            <div class="card-title" style="margin: 0; color: var(--text-muted);">🔴 Historial de Códigos Desactivados (Ya No Funcionan)</div>
+            <span class="badge badge-white">Registro Histórico</span>
+          </div>
+          <div id="expired-codes-list" style="max-height: 480px; overflow-y: auto; padding-right: 0.35rem;"></div>
+
+          <div class="card" style="margin-top: 1.5rem;">
+            <div class="card-title">📖 ¿Cómo canjear códigos en Wuthering Waves?</div>
+            <div style="font-size: 0.825rem; color: var(--gold-primary); font-weight: 700; margin-bottom: 0.75rem;">
+              Requisito: Nivel de Unión 2 (Union Level 2)
+            </div>
+            <ol id="redeem-guide-steps" style="padding-left: 1.25rem;"></ol>
+          </div>
         </div>
       </div>
     </section>
@@ -426,7 +478,10 @@
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
 
+  <!-- YouTube Audio Stream Container (Invisible & Non-blocking) -->
+  <div id="yt-audio-container" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; bottom: 0; left: 0;"></div>
+
   <!-- Application Controller with cache-busting -->
-  <script type="module" src="js/app.js?v=20261015-v6"></script>
+  <script type="module" src="js/app.js?v=20261015-v7"></script>
 </body>
 </html>
