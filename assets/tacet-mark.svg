@@ -1,69 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" fill="none">
-  <defs>
-    <!-- Radiant Gold Core Gradient -->
-    <linearGradient id="tm-gold-core" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="25%" stop-color="#ffe494" />
-      <stop offset="70%" stop-color="#ffd159" />
-      <stop offset="100%" stop-color="#c98a1a" />
-    </linearGradient>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200" fill="none">
+  <!-- Inverted: Deep Black Background -->
+  <rect width="600" height="200" fill="#08080a" />
 
-    <!-- Radiant Gold Wing Gradient -->
-    <linearGradient id="tm-gold-wing" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fff2b8" />
-      <stop offset="50%" stop-color="#ffd159" />
-      <stop offset="100%" stop-color="#b07914" />
-    </linearGradient>
-
-    <!-- Subtle Amber Glow -->
-    <filter id="tm-gold-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ffd159" flood-opacity="0.35" />
-    </filter>
-  </defs>
-
-  <!-- Group with subtle drop glow -->
-  <g filter="url(#tm-gold-glow)">
-    <!-- Outer Acoustic Soundwave Arcs -->
-    <path d="M 64 12 C 94 30 108 50 108 64 C 108 78 94 98 64 116" stroke="#ffd159" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.85" />
-    <path d="M 64 12 C 34 30 20 50 20 64 C 20 78 34 98 64 116" stroke="#ffd159" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.85" />
-
-    <!-- Concentric Dotted Resonance Rings -->
-    <path d="M 64 22 C 86 36 96 50 96 64 C 96 78 86 92 64 106" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity="0.45" />
-    <path d="M 64 22 C 42 36 32 50 32 64 C 32 78 42 92 64 106" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity="0.45" />
-
-    <!-- Horizontal Acoustic Needles -->
-    <polygon points="120,64 88,61 88,67" fill="url(#tm-gold-core)" />
-    <polygon points="8,64 40,61 40,67" fill="url(#tm-gold-core)" />
-
-    <!-- Upper Resonance Wings -->
-    <path d="M 64 38 Q 88 32 102 18 Q 92 42 74 52 Z" fill="url(#tm-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
-    <path d="M 64 38 Q 40 32 26 18 Q 36 42 54 52 Z" fill="url(#tm-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
-
-    <!-- Lower Resonance Wings -->
-    <path d="M 64 90 Q 88 96 102 110 Q 92 86 74 76 Z" fill="url(#tm-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
-    <path d="M 64 90 Q 40 96 26 110 Q 36 86 54 76 Z" fill="url(#tm-gold-wing)" stroke="#ffffff" stroke-width="0.75" />
-
-    <!-- Mid Crescent Flanks -->
-    <path d="M 76 56 Q 96 64 84 72 Q 78 68 76 56 Z" fill="#ffd159" stroke="#ffffff" stroke-width="0.5" />
-    <path d="M 52 56 Q 32 64 44 72 Q 50 68 52 56 Z" fill="#ffd159" stroke="#ffffff" stroke-width="0.5" />
-
-    <!-- Vertical Axis Needles (Top & Bottom) -->
-    <!-- Top Central Needle -->
-    <polygon points="64,4 67.5,24 64,36 60.5,24" fill="url(#tm-gold-core)" stroke="#ffffff" stroke-width="0.75" />
-    <!-- Bottom Central Needle -->
-    <polygon points="64,124 67.5,104 64,92 60.5,104" fill="url(#tm-gold-core)" stroke="#ffffff" stroke-width="0.75" />
-
-    <!-- Outer Diamond Frame -->
-    <polygon points="64,34 86,64 64,94 42,64" fill="none" stroke="#ffd159" stroke-width="1.8" />
-    <polygon points="64,38 82,64 64,90 46,64" fill="#08080a" stroke="#ffffff" stroke-width="0.75" />
-
-    <!-- Center Resonator Core Rhombus -->
-    <polygon points="64,45 77,64 64,83 51,64" fill="url(#tm-gold-core)" stroke="#ffffff" stroke-width="1.2" />
-
-    <!-- Inner Core Cutout Void -->
-    <polygon points="64,52 71,64 64,76 57,64" fill="#08080a" stroke="#ffd159" stroke-width="0.8" />
-
-    <!-- Center Resonance Spark -->
-    <polygon points="64,58 67,64 64,70 61,64" fill="#ffffff" />
+  <!-- Inverted: Pure White Soundwave (Clean & Simplified Vector) -->
+  <g fill="#ffffff">
+    <!-- Left wave cluster -->
+    <path d="M 30,95 L 42,92 L 51,94 L 63,88 L 66,80 L 75,92 L 84,92 L 102,98 L 93,106 L 87,103 L 75,106 L 66,117 L 60,104 L 54,102 L 48,106 L 42,99 L 30,95 Z" />
+    <!-- Floating diamond pip 1 -->
+    <path d="M 113,96 L 117,91 L 121,97 L 117,101 L 113,97 Z" />
+    <!-- Mid-left needle cluster -->
+    <path d="M 131,96 L 149,90 L 155,65 L 158,78 L 164,88 L 170,88 L 173,84 L 179,93 L 185,89 L 194,96 L 188,101 L 182,99 L 176,101 L 167,117 L 164,111 L 161,113 L 158,141 L 152,109 L 146,106 L 143,108 L 137,99 L 131,97 Z" />
+    <!-- Main Epicenter: Primary & Secondary Resonance Spires -->
+    <path d="M 202,95 L 211,86 L 217,91 L 238,88 L 250,82 L 256,72 L 262,29 L 265,52 L 274,76 L 283,75 L 286,63 L 292,82 L 298,88 L 307,90 L 322,84 L 325,87 L 334,88 L 349,82 L 361,82 L 367,72 L 373,48 L 376,66 L 382,69 L 385,81 L 418,92 L 409,96 L 400,96 L 394,103 L 388,101 L 382,103 L 373,140 L 370,115 L 361,99 L 355,97 L 346,100 L 322,96 L 313,98 L 307,104 L 292,106 L 283,113 L 277,127 L 274,128 L 271,124 L 265,175 L 262,134 L 259,133 L 256,138 L 247,109 L 244,106 L 226,102 L 214,108 L 211,102 L 202,96 Z" />
+    <!-- Floating diamond pip 2 -->
+    <path d="M 425,91 L 431,83 L 437,91 L 431,98 L 425,92 Z" />
+    <!-- Right wave cluster -->
+    <path d="M 444,91 L 447,86 L 462,89 L 474,85 L 480,87 L 492,85 L 498,80 L 504,66 L 510,81 L 516,86 L 543,89 L 543,93 L 522,98 L 513,108 L 510,105 L 504,117 L 501,108 L 495,102 L 480,96 L 471,100 L 465,94 L 459,92 L 447,94 L 444,91 Z" />
+    <!-- Terminal tail pips and needles -->
+    <path d="M 547,90 L 549,90 L 547,91 Z" />
+    <path d="M 554,89 L 568,91 L 554,92 Z" />
   </g>
 </svg>
