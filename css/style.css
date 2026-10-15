@@ -750,8 +750,15 @@ body {
 }
 
 .btn-sm {
-  padding: 0.45rem 0.85rem;
-  font-size: 0.75rem;
+  width: auto !important;
+  max-width: max-content !important;
+  padding: 0.45rem 0.85rem !important;
+  font-size: 0.75rem !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
 }
 
 /* ==========================================================================
@@ -1155,13 +1162,40 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-white-subtle);
   border-left: 3px solid var(--gold-primary);
-  padding: 0.95rem 1.15rem;
+  padding: 0.85rem 1.15rem;
   margin-bottom: 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   transition: all 0.15s ease;
+  overflow: hidden;
+}
+
+.code-card > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.code-card .btn,
+.code-card button {
+  width: auto !important;
+  max-width: max-content !important;
+  flex-shrink: 0 !important;
+  padding: 0.45rem 1rem !important;
+  font-size: 0.75rem !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  letter-spacing: 0.04em !important;
+}
+
+#expired-codes-list {
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.35rem;
 }
 
 .code-card:hover {

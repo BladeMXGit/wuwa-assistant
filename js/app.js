@@ -580,7 +580,7 @@ function renderCodes() {
       } else {
         activeContainer.innerHTML = filteredActive.map(c => `
           <div class="code-card">
-            <div style="flex: 1;">
+            <div style="flex: 1; min-width: 0;">
               <div class="code-card-header">
                 <div class="code-badge">${c.code}</div>
                 <span class="code-status-pill active">${c.badge || 'ACTIVO'}</span>
@@ -609,7 +609,7 @@ function renderCodes() {
       } else {
         expiredContainer.innerHTML = filteredExpired.map(c => `
           <div class="code-card expired">
-            <div style="flex: 1;">
+            <div style="flex: 1; min-width: 0;">
               <div class="code-card-header">
                 <div class="code-badge expired-badge">${c.code}</div>
                 <span class="code-status-pill expired">${c.badge || 'EXPIRADO'}</span>

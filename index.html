@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261015-v6">
+  <link rel="stylesheet" href="css/style.css?v=20261015-v9">
 </head>
 <body>
   <div class="container">
@@ -376,8 +376,8 @@
       <div class="grid-2">
         <!-- Códigos Activos (Funcionando Ahora) -->
         <div id="col-active-codes">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
-            <div class="card-title" style="margin: 0; color: var(--gold-primary);">🟢 Códigos Activos (Funcionando Ahora)</div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; gap: 0.5rem; flex-wrap: wrap;">
+            <div class="card-title" style="margin: 0; color: var(--gold-primary); font-size: 0.95rem;">🟢 Códigos Activos (Funcionando)</div>
             <span class="badge badge-gold" id="badge-active-sum">+410 Astrites</span>
           </div>
           <div id="active-codes-list">
@@ -485,11 +485,11 @@
 
         <!-- Historial de Códigos Desactivados & Guía -->
         <div id="col-expired-codes">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
-            <div class="card-title" style="margin: 0; color: var(--text-muted);">🔴 Historial de Códigos Desactivados (Ya No Funcionan)</div>
-            <span class="badge badge-white">Registro Histórico</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; gap: 0.5rem; flex-wrap: wrap;">
+            <div class="card-title" style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">🔴 Historial Desactivados (Expirados)</div>
+            <span class="badge badge-white" style="font-size: 0.7rem;">Registro</span>
           </div>
-          <div id="expired-codes-list" style="max-height: 480px; overflow-y: auto; padding-right: 0.35rem;">
+          <div id="expired-codes-list" style="max-height: 480px; overflow-y: auto; overflow-x: hidden; padding-right: 0.35rem;">
             <div class="code-card expired">
               <div style="flex: 1;">
                 <div class="code-card-header">
@@ -794,6 +794,6 @@
   </script>
 
   <!-- Application Controller with cache-busting -->
-  <script type="module" src="js/app.js?v=20261015-v8"></script>
+  <script type="module" src="js/app.js?v=20261015-v9"></script>
 </body>
 </html>
