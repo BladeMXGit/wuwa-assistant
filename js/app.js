@@ -5,7 +5,7 @@
 
 import { RECURRING_SOURCES, HIDDEN_SECRETS } from './data/astrite-sources.js';
 import { SONATA_SETS, COST_CONFIGS, DATA_BANK_TIPS } from './data/echoes.js';
-import { PROMO_CODES, REDEEM_GUIDE } from './data/codes.js';
+import { PROMO_CODES, REDEEM_GUIDE } from './data/codes.js?v=20261015-v8';
 import { SERVERS, getServerTimes, getTowerResetCountdown, parseConveneUrl, POWERSHELL_CONVENE_SCRIPT } from './tools/server-sync.js';
 import { detectServerByUID, getPlayerProfile, getSol3Phase } from './tools/uid-lookup.js';
 import { SVG_ICONS } from './data/icons.js';
@@ -75,24 +75,32 @@ window.copyCode = async function(text) {
 };
 
 /* ==========================================================================
-   Navigation Tabs
+   Navigation Tabs & Direct Switcher
    ========================================================================== */
+
+window.switchTab = function(target) {
+  const tabs = document.querySelectorAll('.nav-tab');
+  const views = document.querySelectorAll('.tab-view');
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === target));
+  views.forEach(v => v.classList.toggle('active', v.id === `view-${target}`));
+  try { window.location.hash = target; } catch(e) {}
+};
 
 function initNavigation() {
   const tabs = document.querySelectorAll('.nav-tab');
-  const views = document.querySelectorAll('.tab-view');
-
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const target = tab.dataset.tab;
-      tabs.forEach(t => t.classList.remove('active'));
-      views.forEach(v => v.classList.remove('active'));
-
-      tab.classList.add('active');
-      const activeView = document.getElementById(`view-${target}`);
-      if (activeView) activeView.classList.add('active');
+      window.switchTab(target);
     });
   });
+
+  if (window.location.hash) {
+    const hash = window.location.hash.replace('#', '');
+    if (document.getElementById(`view-${hash}`)) {
+      window.switchTab(hash);
+    }
+  }
 }
 
 /* ==========================================================================
@@ -531,8 +539,12 @@ function renderCodes() {
   let currentFilter = 'all'; // 'all' | 'active' | 'expired'
   let searchQuery = '';
 
-  const activeCodes = PROMO_CODES.filter(c => c.status === 'active');
-  const expiredCodes = PROMO_CODES.filter(c => c.status === 'expired');
+  const activeCodes = PROMO_CODES.filter(c => 
+    c.status === 'active' || c.active === true || (c.status && c.status.toLowerCase().includes('activo')) || (c.status && c.status.toLowerCase().includes('permanent'))
+  );
+  const expiredCodes = PROMO_CODES.filter(c => 
+    c.status === 'expired' || c.active === false || (c.status && c.status.toLowerCase().includes('expir')) || (c.status && c.status.toLowerCase().includes('desactiv')) || (c.status && c.status.toLowerCase().includes('termin'))
+  );
 
   if (countAll) countAll.textContent = PROMO_CODES.length;
   if (countActive) countActive.textContent = activeCodes.length;
@@ -890,17 +902,23 @@ function initUidLookup() {
 }
 
 /* ==========================================================================
-   Initialization
+   Initialization & Fault-Tolerant Bootstrap
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initNavigation();
-  initPullsPlanner();
-  initWaveplateTracker();
-  initServerSync();
-  initUidLookup();
-  renderSecrets();
-  renderEchoes();
-  renderCodes();
-  audioController.init();
-});
+function initApp() {
+  try { initNavigation(); } catch (e) { console.error('Navigation error:', e); }
+  try { renderCodes(); } catch (e) { console.error('Codes error:', e); }
+  try { initPullsPlanner(); } catch (e) { console.error('Planner error:', e); }
+  try { initWaveplateTracker(); } catch (e) { console.error('Waveplate error:', e); }
+  try { initServerSync(); } catch (e) { console.error('ServerSync error:', e); }
+  try { initUidLookup(); } catch (e) { console.error('UID lookup error:', e); }
+  try { renderSecrets(); } catch (e) { console.error('Secrets error:', e); }
+  try { renderEchoes(); } catch (e) { console.error('Echoes error:', e); }
+  try { audioController.init(); } catch (e) { console.error('Audio error:', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}

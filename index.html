@@ -115,7 +115,7 @@
       <button class="nav-tab" data-tab="waveplate">02 // WAVEPLATE</button>
       <button class="nav-tab" data-tab="secrets">03 // SECRETS &amp; ASTRITES</button>
       <button class="nav-tab" data-tab="echoes">04 // ECHO SONATAS</button>
-      <button class="nav-tab" data-tab="codes">05 // PROMO CODES</button>
+      <button class="nav-tab" data-tab="codes" id="nav-tab-codes">05 // CÓDIGOS (7 ACTIVOS)</button>
       <button class="nav-tab" data-tab="servers">06 // SERVERS &amp; UID</button>
     </nav>
 
@@ -257,6 +257,17 @@
               • <strong>Asegurar Personaje:</strong> 160 tiradas garantizan cualquier 5★ desde cero.
             </p>
           </div>
+
+          <!-- Promo Codes Direct Alert Card in Tab 1 -->
+          <div class="card" style="margin-top: 1.25rem; border-left: 3px solid var(--gold-primary); background: rgba(255, 209, 89, 0.04);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+              <div>
+                <div style="font-size: 0.92rem; font-weight: 700; color: #ffffff;">🎁 Códigos de Canje Activos: +410 Astrites Disponibles</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem;">Hay 7 códigos activos funcionando actualmente para reclamar hoy mismo.</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="switchTab('codes')">Ver Códigos (7 Activos / 11 Históricos) ↗</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -351,9 +362,9 @@
             <div class="card-desc" style="margin-top: 0.25rem;">Consulta los códigos que funcionan actualmente y el registro histórico de códigos desactivados/expirados.</div>
           </div>
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;" id="codes-filter-group">
-            <button class="dither-btn-mini code-filter-btn active" data-filter="all">TODOS (<span id="count-all">0</span>)</button>
-            <button class="dither-btn-mini code-filter-btn" data-filter="active" style="border-color: var(--gold-primary); color: var(--gold-primary);">🟢 ACTIVOS (<span id="count-active">0</span>)</button>
-            <button class="dither-btn-mini code-filter-btn" data-filter="expired">🔴 DESACTIVADOS (<span id="count-expired">0</span>)</button>
+            <button class="dither-btn-mini code-filter-btn active" data-filter="all">TODOS (<span id="count-all">18</span>)</button>
+            <button class="dither-btn-mini code-filter-btn" data-filter="active" style="border-color: var(--gold-primary); color: var(--gold-primary);">🟢 ACTIVOS (<span id="count-active">7</span>)</button>
+            <button class="dither-btn-mini code-filter-btn" data-filter="expired">🔴 DESACTIVADOS (<span id="count-expired">11</span>)</button>
           </div>
         </div>
 
@@ -369,7 +380,107 @@
             <div class="card-title" style="margin: 0; color: var(--gold-primary);">🟢 Códigos Activos (Funcionando Ahora)</div>
             <span class="badge badge-gold" id="badge-active-sum">+410 Astrites</span>
           </div>
-          <div id="active-codes-list"></div>
+          <div id="active-codes-list">
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">WUTHERINGGIFT</div>
+                  <span class="code-status-pill active">PERMANENTE</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  50 Astrites, 2x Poción de Resonancia Premium, 2x Inhalador de Revivir Mediano, 10,000 Créditos de Concha
+                </div>
+                <div class="code-meta-date">Código de Bienvenida Oficial (Válido para todas las cuentas)</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('WUTHERINGGIFT')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">SHOREKEEPER</div>
+                  <span class="code-status-pill active">ACTIVO v1.3</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  100 Astrites, 2x Paquete de Materiales de Forja Avanzados
+                </div>
+                <div class="code-meta-date">Lanzamiento de The Black Shores</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('SHOREKEEPER')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">BLACKSHORES</div>
+                  <span class="code-status-pill active">ACTIVO v1.3</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  100 Astrites, 20,000 Créditos de Concha
+                </div>
+                <div class="code-meta-date">Evento Especial Archipiélago Negro</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('BLACKSHORES')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">FORYOU</div>
+                  <span class="code-status-pill active">ACTIVO</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  100 Astrites, 1x Inhalador de Resonancia
+                </div>
+                <div class="code-meta-date">Celebración de la Comunidad Kuro</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('FORYOU')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">PTTMYZSOM</div>
+                  <span class="code-status-pill active">ACTIVO</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  5,000 Créditos de Concha, 1x Poción de Resonancia Mediana
+                </div>
+                <div class="code-meta-date">Código de Difusión Global</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('PTTMYZSOM')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">DCARD36ME5</div>
+                  <span class="code-status-pill active">ACTIVO</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  5,000 Créditos de Concha, 1x Poción de Resonancia Mediana
+                </div>
+                <div class="code-meta-date">Código Promocional Discord Oficial</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('DCARD36ME5')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge">BAHAMUTKRO</div>
+                  <span class="code-status-pill active">ACTIVO</span>
+                </div>
+                <div style="font-size: 0.825rem; color: var(--gold-bright); margin-top: 0.35rem; line-height: 1.45;">
+                  5,000 Créditos de Concha, 2x Poción Básica de Resonancia
+                </div>
+                <div class="code-meta-date">Colaboración de Comunidad</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="copyCode('BAHAMUTKRO')" style="white-space: nowrap; flex-shrink: 0;">📋 Copiar</button>
+            </div>
+          </div>
+          <!-- Legacy container fallback -->
+          <div id="codes-list" style="display: none;"></div>
         </div>
 
         <!-- Historial de Códigos Desactivados & Guía -->
@@ -378,14 +489,152 @@
             <div class="card-title" style="margin: 0; color: var(--text-muted);">🔴 Historial de Códigos Desactivados (Ya No Funcionan)</div>
             <span class="badge badge-white">Registro Histórico</span>
           </div>
-          <div id="expired-codes-list" style="max-height: 480px; overflow-y: auto; padding-right: 0.35rem;"></div>
+          <div id="expired-codes-list" style="max-height: 480px; overflow-y: auto; padding-right: 0.35rem;">
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">ALLTHANKSTOYOU</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">160 Astrites (1 Tirada de Gacha Gratis)</div>
+                <div class="code-meta-date">Terminado: Hito 30M Descargas (Finalizado)</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('ALLTHANKSTOYOU')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">WUTHERING2024</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">100 Astrites, 10,000 Créditos de Concha</div>
+                <div class="code-meta-date">Terminado: Semana de Lanzamiento Global</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('WUTHERING2024')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">BURNINGAWAKENING</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">100 Astrites, 2x Poción Avanzada</div>
+                <div class="code-meta-date">Terminado: Actualización v1.1 Changli</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('BURNINGAWAKENING')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">JINZHOU</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">50 Astrites, 2x Poción Mediana</div>
+                <div class="code-meta-date">Terminado: Evento de Celebración Jinzhou</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('JINZHOU')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">SOLARIS3</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">50 Astrites, 10,000 Créditos de Concha</div>
+                <div class="code-meta-date">Terminado: Campaña de Apertura Solaris-3</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('SOLARIS3')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">WUTHERINGMOVE</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">10,000 Créditos de Concha, 2x Poción Básica</div>
+                <div class="code-meta-date">Terminado: Campaña Móvil Kuro</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('WUTHERINGMOVE')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">MINGCHAO666</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">100 Astrites, 10,000 Créditos de Concha</div>
+                <div class="code-meta-date">Terminado: Evento Servidores de Asia</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('MINGCHAO666')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">WUWA2024</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">50 Astrites, 10,000 Créditos de Concha</div>
+                <div class="code-meta-date">Terminado: Beta Cerrada CBT2 / Pre-registro</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('WUWA2024')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">ROVERRES</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">10,000 Créditos de Concha</div>
+                <div class="code-meta-date">Terminado: Resonancia del Rover</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('ROVERRES')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">ECHOESOFWAR</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">100 Astrites, 1x Caja de Materiales de Arma</div>
+                <div class="code-meta-date">Terminado: Desafío Holograma Tacet</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('ECHOESOFWAR')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+
+            <div class="code-card expired">
+              <div style="flex: 1;">
+                <div class="code-card-header">
+                  <div class="code-badge expired-badge">KUROSEPT</div>
+                  <span class="code-status-pill expired">EXPIRADO</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem; line-height: 1.45;">100 Astrites, 2x Pack de Forja</div>
+                <div class="code-meta-date">Terminado: Especial de Septiembre</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="copyCode('KUROSEPT')" style="white-space: nowrap; flex-shrink: 0; opacity: 0.75;">📋 Copiar</button>
+            </div>
+          </div>
 
           <div class="card" style="margin-top: 1.5rem;">
             <div class="card-title">📖 ¿Cómo canjear códigos en Wuthering Waves?</div>
             <div style="font-size: 0.825rem; color: var(--gold-primary); font-weight: 700; margin-bottom: 0.75rem;">
               Requisito: Nivel de Unión 2 (Union Level 2)
             </div>
-            <ol id="redeem-guide-steps" style="padding-left: 1.25rem;"></ol>
+            <ol id="redeem-guide-steps" style="padding-left: 1.25rem;">
+              <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);"><strong style="color: var(--gold-primary);">1.</strong> Abre el Menú Principal (tecla ESC en PC o icono de terminal arriba a la derecha en móviles).</li>
+              <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);"><strong style="color: var(--gold-primary);">2.</strong> Haz clic en el engranaje de "Ajustes" (Settings) ubicado abajo a la derecha.</li>
+              <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);"><strong style="color: var(--gold-primary);">3.</strong> Dirígete a la pestaña "Otros Ajustes" (Other Settings, icono de llave inglesa).</li>
+              <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);"><strong style="color: var(--gold-primary);">4.</strong> Busca la sección "Código de Canje" (Redemption Code) y pega el código que copiaste aquí.</li>
+              <li style="margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted);"><strong style="color: var(--gold-primary);">5.</strong> Revisa tu Correo (Mailbox) dentro del juego para reclamar los Astrites y materiales.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -481,7 +730,70 @@
   <!-- YouTube Audio Stream Container (Invisible & Non-blocking) -->
   <div id="yt-audio-container" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; overflow: hidden; bottom: 0; left: 0;"></div>
 
+  <!-- Inline Fallback Controller (Guarantees Instant Tab Switching & Copy even on file:// or slow networks) -->
+  <script>
+    function switchTab(target) {
+      document.querySelectorAll('.nav-tab').forEach(function(t) {
+        t.classList.toggle('active', t.getAttribute('data-tab') === target);
+      });
+      document.querySelectorAll('.tab-view').forEach(function(v) {
+        v.classList.toggle('active', v.id === 'view-' + target);
+      });
+      try { window.location.hash = target; } catch(e) {}
+    }
+    document.addEventListener('click', function(e) {
+      var tabBtn = e.target.closest('.nav-tab');
+      if (tabBtn && tabBtn.getAttribute('data-tab')) {
+        switchTab(tabBtn.getAttribute('data-tab'));
+      }
+    });
+    // Check initial hash on load (e.g. #codes)
+    if (window.location.hash) {
+      var initialTab = window.location.hash.replace('#', '');
+      if (document.getElementById('view-' + initialTab)) {
+        switchTab(initialTab);
+      }
+    }
+    // Global fallback copy handler
+    window.copyCode = function(code) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(function() {
+          showToastGlobal('¡Código ' + code + ' copiado al portapapeles!');
+        }).catch(function() {
+          fallbackCopyText(code);
+        });
+      } else {
+        fallbackCopyText(code);
+      }
+    };
+    function fallbackCopyText(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToastGlobal('¡Código ' + text + ' copiado al portapapeles!');
+    }
+    function showToastGlobal(msg) {
+      var container = document.getElementById('toast-container');
+      if (!container) return;
+      var toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = '<span>✓</span> <span>' + msg + '</span>';
+      container.appendChild(toast);
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        toast.style.transition = 'all 0.2s ease';
+        setTimeout(function() { toast.remove(); }, 200);
+      }, 2200);
+    }
+  </script>
+
   <!-- Application Controller with cache-busting -->
-  <script type="module" src="js/app.js?v=20261015-v7"></script>
+  <script type="module" src="js/app.js?v=20261015-v8"></script>
 </body>
 </html>
